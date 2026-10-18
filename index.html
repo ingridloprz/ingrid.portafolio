@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ingrid López — Portafolio</title>
+<meta name="description" content="Portafolio editorial interactivo de Ingrid López: carpetas de archivo con proyectos, formación, habilidades y contacto.">
+<style>
+:root{
+  --color-primary:#79121E;
+  --color-background:#FBFCF0;
+  --color-secondary:#94B1C8;
+  --color-ink:#1A0905;
+  --color-primary-on:#FBFCF0;
+  --font-display:"Instrument Serif",Georgia,serif;
+  --font-heading:"Instrument Serif",Georgia,serif;
+  --font-accent:"New Kansas",Georgia,serif;
+  --font-body:"Albert Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-caption:"Albert Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --size-display:64px;
+  --size-heading:32px;
+  --size-accent:24px;
+  --size-body:16px;
+  --size-caption:13px;
+  --space-xs:4px;
+  --space-sm:8px;
+  --space-md:16px;
+  --space-lg:24px;
+  --space-xl:32px;
+  --space-xxl:48px;
+  --space-xxxl:64px;
+  --space-section:96px;
+  --radius-none:0px;
+  --radius-card:4px;
+  --radius-pill:999px;
+  --radius-circle:50%;
+  --shadow-suave:0 2px 8px rgba(76,5,12,.08);
+  --shadow-media:0 4px 16px rgba(76,5,12,.12);
+  --shadow-fuerte:0 8px 32px rgba(76,5,12,.16);
+}
+@font-face{font-family:"Instrument Serif";src:url("assets/fonts/Instrument_Serif/InstrumentSerif-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Instrument Serif";src:url("assets/fonts/Instrument_Serif/InstrumentSerif-Italic.ttf") format("truetype");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"New Kansas";src:url("assets/fonts/new-kansas-font/New Kansas Regular.otf") format("opentype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Albert Sans";src:url("assets/fonts/Albert_Sans/AlbertSans-VariableFont_wght.ttf") format("truetype");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Albert Sans";src:url("assets/fonts/Albert_Sans/AlbertSans-Italic-VariableFont_wght.ttf") format("truetype");font-weight:100 900;font-style:italic;font-display:swap}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* === FONDO DE RAYAS VERTICALES === */
+body{
+  margin:0;
+  color:var(--color-ink);
+  font-family:var(--font-body);
+  font-size:var(--size-body);
+  line-height:1.6;
+  background-color:var(--color-primary);
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 40px,
+      rgba(251,252,240,.03) 40px,
+      rgba(251,252,240,.03) 80px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 80px,
+      rgba(0,0,0,.08) 80px,
+      rgba(0,0,0,.08) 120px
+    );
+  background-size:120px 100%,120px 100%;
+}
+img{max-width:100%;height:auto;display:block}
+.skip-link{position:absolute;left:8px;top:-70px;background:var(--color-primary);color:var(--color-primary-on);padding:12px 20px;border-radius:var(--radius-pill);z-index:200;text-decoration:none}
+.skip-link:focus{top:8px}
+:focus-visible{outline:3px solid var(--color-primary);outline-offset:3px;border-radius:2px}
+.on-wine :focus-visible{outline-color:var(--color-primary-on)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 var(--space-lg)}
+
+/* === HEADER === */
+.site-header{background:var(--color-background);border-bottom:1px solid var(--color-primary);position:sticky;top:0;z-index:100}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:var(--space-md);padding-top:var(--space-md);padding-bottom:var(--space-md)}
+.marca img{height:32px;width:auto}
+.navegacion ul{display:flex;align-items:center;gap:8px;list-style:none;margin:0;padding:0}
+.navegacion a{color:var(--color-primary);text-decoration:none;border:1px solid var(--color-primary);border-radius:var(--radius-pill);padding:8px 18px;min-height:44px;display:inline-flex;align-items:center;font-size:var(--size-caption)}
+.navegacion a:hover{text-decoration:underline}
+.navegacion a[aria-current="page"]{background:var(--color-primary);color:var(--color-primary-on)}
+
+/* === SISTEMA DE CARPETAS FISICAS === */
+.carpetas-contenedor{position:relative;padding:var(--space-xl) 0 var(--space-xxl)}
+.carpetas-stage{position:relative;min-height:700px}
+
+/* Carpeta con silueta fisica */
+.carpeta{
+  position:absolute;
+  inset:0;
+  background:var(--color-background);
+  border-radius:0 var(--radius-card) var(--radius-card) var(--radius-card);
+  box-shadow:var(--shadow-fuerte);
+  padding:var(--space-xl);
+  transition:transform .3s ease,box-shadow .3s ease,opacity .3s ease;
+  overflow-y:auto;
+  max-height:85vh;
+}
+.carpeta[hidden]{display:none}
+.carpeta.activa{z-index:10;transform:translateY(0) scale(1);opacity:1}
+.carpeta.fondo-1{transform:translateY(12px) scale(.97);opacity:.6;z-index:5;pointer-events:none}
+.carpeta.fondo-2{transform:translateY(24px) scale(.94);opacity:.3;z-index:1;pointer-events:none}
+
+/* Pestana integrada en la carpeta */
+.carpeta::before{
+  content:attr(data-tab);
+  position:absolute;
+  top:-28px;
+  left:var(--space-xl);
+  background:var(--color-background);
+  border:1px solid rgba(76,5,12,.2);
+  border-bottom:none;
+  border-radius:var(--radius-card) var(--radius-card) 0 0;
+  padding:8px 32px;
+  font-family:var(--font-body);
+  font-size:var(--size-caption);
+  font-weight:400;
+  color:var(--color-primary);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  z-index:11;
+}
+.carpeta.activa::before{
+  background:var(--color-primary);
+  color:var(--color-primary-on);
+  border-color:var(--color-primary);
+}
+
+/* Contenido de carpetas */
+.carpeta h2{font-family:var(--font-display);font-weight:400;font-size:var(--size-heading);line-height:1.15;color:var(--color-primary);margin:0 0 var(--space-md)}
+.carpeta h3{font-family:var(--font-heading);font-weight:400;color:var(--color-primary);font-size:20px;margin:var(--space-lg) 0 var(--space-sm)}
+.carpeta p{max-width:68ch}
+.carpeta ul{padding-left:var(--space-lg)}
+.carpeta li{margin-bottom:var(--space-sm)}
+
+/* === PORTADA / ABOUT ME (vino) === */
+.portada{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:var(--space-xl);
+  align-items:center;
+  min-height:500px;
+}
+.portada-texto h1{
+  font-family:var(--font-display);
+  font-weight:400;
+  font-size:clamp(48px,8vw,80px);
+  line-height:1.05;
+  color:var(--color-primary-on);
+  margin:0 0 var(--space-lg);
+}
+.portada-texto p{
+  color:var(--color-primary-on);
+  font-size:var(--size-body);
+  max-width:50ch;
+  margin-bottom:var(--space-md);
+}
+.etiquetas-portada{
+  list-style:none;
+  margin:var(--space-lg) 0 0;
+  padding:0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--space-sm);
+}
+.etiquetas-portada li{
+  background:transparent;
+  color:var(--color-primary-on);
+  border:1px solid var(--color-primary-on);
+  border-radius:var(--radius-pill);
+  padding:8px 20px;
+  font-size:var(--size-caption);
+  font-weight:400;
+}
+.portada-foto{
+  position:relative;
+  display:flex;
+  justify-content:center;
+}
+.polaroid{
+  background:#fff;
+  padding:var(--space-md) var(--space-md) var(--space-xl);
+  box-shadow:var(--shadow-media);
+  transform:rotate(-3deg);
+  position:relative;
+  max-width:300px;
+}
+
+/* === ABOUT ME (beige) === */
+.about-beige{
+  background:var(--color-background);
+}
+.about-beige h2{color:var(--color-primary)}
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:var(--space-xl);
+  margin-top:var(--space-lg);
+}
+.about-col h3{
+  font-family:var(--font-heading);
+  font-weight:400;
+  color:var(--color-primary);
+  font-size:20px;
+  margin:var(--space-lg) 0 var(--space-sm);
+}
+.about-col h3:first-child{margin-top:0}
+.intereses-titulo{margin:var(--space-lg) 0 var(--space-sm)}
+.intereses-circulos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(110px,1fr));gap:var(--space-md);max-width:480px}
+.intereses-circulos li{display:flex;justify-content:center}
+.intereses-circulos .circulo-habilidad{cursor:default}
+@media(max-width:520px){.intereses-circulos{grid-template-columns:repeat(2,minmax(110px,1fr))}}
+
+/* Habilidades en circulos */
+.habilidades-circulos{
+  list-style:none;
+  margin:var(--space-md) 0 0;
+  padding:0;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:var(--space-lg);
+}
+.habilidades-circulos li{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:var(--space-sm);
+  text-align:center;
+}
+.circulo-habilidad{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:var(--space-md);
+  font-size:var(--size-caption);
+  font-weight:400;
+  text-align:center;
+  line-height:1.3;
+  cursor:pointer;
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.circulo-habilidad:hover{transform:translateY(-4px);box-shadow:var(--shadow-media)}
+.circulo-habilidad:focus-visible{outline:3px solid var(--color-primary);outline-offset:3px}
+.circulo-1{background:var(--color-primary);color:var(--color-primary-on)}
+.circulo-2{background:var(--color-secondary);color:var(--color-ink)}
+.circulo-3{background:var(--color-background);color:var(--color-primary);border:2px solid var(--color-primary)}
+.circulo-4{background:var(--color-ink);color:var(--color-background)}
+.circulo-5{background:var(--color-primary);color:var(--color-primary-on);border:2px dashed var(--color-primary-on)}
+
+.descripcion-habilidad{
+  margin-top:var(--space-md);
+  padding:var(--space-md);
+  background:rgba(251,252,240,.8);
+  border-left:3px solid var(--color-primary);
+  font-size:var(--size-caption);
+  max-width:500px;
+}
+.descripcion-habilidad strong{color:var(--color-primary);display:block;margin-bottom:var(--space-xs)}
+
+/* Formacion */
+.formacion-item{padding:var(--space-md);border-left:3px solid var(--color-primary);margin-bottom:var(--space-md);background:rgba(251,252,240,.5)}
+.formacion-item strong{color:var(--color-primary)}
+
+/* Herramientas */
+.iconos-grid{list-style:none;margin:var(--space-md) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-md)}
+.iconos-grid li{display:flex;flex-direction:column;align-items:center;gap:var(--space-sm);text-align:center;padding:var(--space-md);background:rgba(251,252,240,.5);border-radius:var(--radius-card);border:1px solid rgba(76,5,12,.1)}
+.iconos-grid img{width:48px;height:48px;object-fit:contain}
+.iconos-grid span{font-size:var(--size-caption);color:var(--color-ink)}
+.iconos-grid .canva-icon{display:block;flex:none;width:48px;height:48px;background-image:url("assets/img/iconos/iconss.png");background-repeat:no-repeat;background-size:210px 110px;background-position:-158px -57px}
+
+/* Idiomas */
+.idiomas{list-style:none;margin:var(--space-md) 0 0;padding:0;display:grid;gap:var(--space-sm)}
+.idiomas li{padding:var(--space-sm) 0;border-bottom:1px solid rgba(76,5,12,.15)}
+.idiomas li:last-child{border-bottom:none}
+
+/* === PROJECTS - MENU DE CATEGORIAS === */
+.categorias-menu{
+  list-style:none;
+  margin:var(--space-lg) 0 0;
+  padding:0;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:var(--space-md);
+}
+.categoria-item{
+  position:relative;
+  border-radius:var(--radius-card);
+  overflow:hidden;
+  cursor:pointer;
+  transition:transform .2s ease,box-shadow .2s ease;
+  background:var(--color-primary);
+}
+.categoria-item:hover{transform:translateY(-4px);box-shadow:var(--shadow-media)}
+.categoria-item:focus-visible{outline:3px solid var(--color-primary);outline-offset:3px}
+.categoria-item img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  opacity:.85;
+  transition:opacity .2s ease,transform .3s ease;
+}
+.categoria-item:hover img{opacity:1;transform:scale(1.03)}
+.categoria-item .categoria-label{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  padding:var(--space-md);
+  background:linear-gradient(transparent,rgba(76,5,12,.9));
+  color:var(--color-primary-on);
+  font-family:var(--font-heading);
+  font-size:24px;
+  font-weight:400;
+}
+
+/* Subcategorias (proyectos de cada categoria) */
+.subcategorias{
+  list-style:none;
+  margin:var(--space-lg) 0 0;
+  padding:0;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:var(--space-md);
+}
+.subcategoria-item{
+  background:var(--color-background);
+  border:1px solid var(--color-primary);
+  border-radius:var(--radius-card);
+  overflow:hidden;
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.subcategoria-item:hover{transform:translateY(-4px);box-shadow:var(--shadow-media)}
+.subcategoria-item figure{margin:0;position:relative;aspect-ratio:16/9;background:#e7e2d2;overflow:hidden}
+.subcategoria-item img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}
+.subcategoria-item figure.video-media{width:min(100%,360px);aspect-ratio:auto;margin:var(--space-md) auto 0;background:#1A0905;border-radius:var(--radius-card)}
+.subcategoria-item video{display:block;width:100%;height:auto;max-height:70vh;object-fit:contain;background:#1A0905}
+.subcategoria-item:hover img{transform:scale(1.05)}
+.subcategoria-item .info{padding:var(--space-md)}
+.subcategoria-item .info h4{margin:0}
+.subcategoria-item .info .subtitulo-proyecto{margin:3px 0 0;font-family:"Instrument Serif",Georgia,serif;font-size:1.05em;line-height:1.05}
+.subcategoria-item h4{font-family:var(--font-heading);font-weight:400;font-size:20px;color:var(--color-primary);margin:0 0 var(--space-sm)}
+.subcategoria-item p{font-size:var(--size-caption);margin:0}
+.subcategoria-item .abrir-proyecto{display:inline-flex;margin:0 var(--space-md) var(--space-md);padding:8px 16px;border:1px solid var(--color-primary);border-radius:var(--radius-pill);background:transparent;color:var(--color-primary);font:inherit;cursor:pointer}
+.subcategoria-item .abrir-proyecto:hover,.subcategoria-item .abrir-proyecto:focus-visible{background:var(--color-primary);color:var(--color-background)}
+.subcategoria-item .abrir-proyecto:disabled{opacity:.55;cursor:not-allowed}
+.subcategoria-item .abrir-proyecto:disabled:hover{background:transparent;color:var(--color-primary)}
+.subcategorias.motion-graphics{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.motion-graphics .subcategoria-item figure{aspect-ratio:1;background:#000}
+.motion-graphics .subcategoria-item figure.video-media{width:100%;aspect-ratio:1;margin:0;border-radius:0}
+.motion-graphics .subcategoria-item figure.video-media video{width:100%;height:100%;max-height:none;object-fit:cover}
+.motion-graphics .subcategoria-item .abrir-proyecto:disabled{display:none}
+.ficha-motion-secuencia{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(24px,4vw,52px);width:min(100%,1600px);margin:0 auto;padding:24px clamp(12px,3vw,40px)}
+.ficha-motion-secuencia img{display:block;width:100%;height:auto;max-height:none;object-fit:contain}
+.ficha-stand{width:100%;min-height:100%;padding:72px clamp(20px,5vw,76px) 64px;background:#000;color:#f8f4ed}
+.ficha-stand-hero{width:min(100%,1480px);margin:0 auto 42px;display:block}
+.ficha-stand-cover-frame{display:none}
+.ficha-stand-cover{display:none}
+.ficha-stand-copy{width:100%;max-width:900px;margin:0 auto}
+.ficha-stand-copy h2{margin:0 0 4px;color:#f8f4ed;font:400 clamp(40px,5vw,84px)/.98 "Instrument Serif",Georgia,serif}
+.ficha-stand-brand{display:block;margin:0 0 22px;font:400 clamp(26px,3vw,42px)/1.05 "Instrument Serif",Georgia,serif;color:#f8f4ed}
+.ficha-stand-copy p{margin:0;font-size:clamp(16px,1.3vw,19px);font-weight:300;line-height:1.4}
+.ficha-stand-copy .ficha-software{margin-top:15px}
+.ficha-stand-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.5vw,36px);width:min(100%,1600px);margin:0 auto}
+.ficha-stand-gallery img{display:block;width:100%;height:auto;object-fit:contain;background:#100b1c}
+.ficha-stand-gallery img:first-child,.ficha-stand-gallery img:last-child{grid-column:1/-1}
+.ficha-personaje{width:100%;min-height:100%;padding:72px clamp(20px,5vw,76px) 64px;background:#000;color:#f8f4ed}
+.ficha-personaje-hero{width:min(100%,1480px);margin:0 auto 52px;display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(28px,5vw,76px);align-items:center}
+.ficha-personaje-cover{display:block;width:100%;height:auto;max-height:78vh;object-fit:contain}
+.ficha-personaje-copy h2{margin:0 0 5px;color:#f8f4ed;font:400 clamp(44px,5.5vw,88px)/.98 "Instrument Serif",Georgia,serif}
+.ficha-personaje-brand{display:block;margin:0 0 22px;font:400 clamp(25px,3vw,42px)/1.05 "Instrument Serif",Georgia,serif;color:#f8f4ed}
+.ficha-personaje-copy{max-width:640px}
+.ficha-personaje-copy p{max-width:42ch;margin:0;font-size:clamp(16px,1.3vw,19px);font-weight:300;line-height:1.4}
+.ficha-personaje-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.5vw,36px);width:min(100%,1600px);margin:0 auto}
+.ficha-personaje-gallery img{display:block;width:100%;height:auto;object-fit:contain;background:#100b1c}
+.ficha-personaje-gallery img:first-child,.ficha-personaje-gallery img:nth-child(4){grid-column:1/-1}
+.ficha-singapore{width:100%;min-height:100%;padding:76px clamp(20px,5vw,76px) 64px;background:#000;color:#f8f4ed}
+.ficha-singapore-intro{width:min(100%,1180px);margin:0 auto 44px}
+.ficha-singapore-intro h2{margin:0 0 8px;color:#f8f4ed;font:400 clamp(42px,5.4vw,82px)/.98 "Instrument Serif",Georgia,serif}
+.ficha-singapore-subtitle{display:block;margin:0 0 22px;color:#f8f4ed;font:400 clamp(23px,2.8vw,38px)/1.08 "Instrument Serif",Georgia,serif}
+.ficha-singapore-intro p{max-width:72ch;margin:0;font-size:clamp(16px,1.3vw,19px);font-weight:300;line-height:1.42}
+.ficha-singapore-branding-intro{display:grid;grid-template-columns:minmax(260px,.85fr) minmax(0,1.15fr);align-items:center;gap:clamp(26px,5vw,72px);width:min(100%,1280px);margin:0 auto 44px}
+.ficha-singapore-branding-intro .ficha-singapore-intro{width:100%;margin:0}
+.ficha-singapore-branding-intro .ficha-singapore-intro p{max-width:48ch}
+.ficha-singapore-totem{display:block;width:100%;height:min(62vh,640px);object-fit:contain;object-position:center}
+.ficha-singapore-link{display:inline-flex;align-items:center;justify-content:center;margin-top:24px;min-height:44px;padding:9px 22px;border:1px solid #f8f4ed;border-radius:999px;color:#f8f4ed;background:transparent;font:400 14px/1 "Albert Sans",sans-serif;text-decoration:none;transition:background .2s,color .2s}
+.ficha-singapore-link:hover,.ficha-singapore-link:focus-visible{background:#f8f4ed;color:#650d18}
+.ficha-singapore-app{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center;gap:clamp(24px,5vw,72px);width:min(100%,1320px);margin:0 auto 38px}
+.ficha-singapore-video{display:flex;align-items:center;justify-content:center;min-width:0}
+.ficha-singapore-phone{width:min(100%,420px);aspect-ratio:9/16;overflow:hidden;background:#000}
+.ficha-singapore-video video{display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:#000}
+.ficha-singapore-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:center;gap:clamp(16px,2.5vw,30px);width:min(100%,1480px);margin:0 auto}
+.ficha-singapore-gallery.branding-galeria{align-items:stretch;gap:clamp(16px,2.5vw,34px)}
+.ficha-singapore-gallery.branding-galeria>.avion{grid-column:1/-1;width:100%;aspect-ratio:16/7;object-fit:cover;object-position:center 58%}
+.ficha-singapore-gallery.branding-galeria .mascada-tarjetas{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);align-items:stretch;gap:clamp(14px,2vw,28px)}
+.ficha-singapore-gallery.branding-galeria .mascada-crop,.ficha-singapore-gallery.branding-galeria .tarjetas-doble figure{position:relative;overflow:hidden;aspect-ratio:.75;margin:0}
+.ficha-singapore-gallery.branding-galeria .mascada-crop img,.ficha-singapore-gallery.branding-galeria .tarjetas-doble img{position:absolute;top:0;left:0;display:block;width:200%;max-width:none;height:100%;object-fit:cover}
+.ficha-singapore-gallery.branding-galeria .tarjetas-doble{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(10px,1.5vw,20px);min-width:0}
+.ficha-singapore-gallery.branding-galeria .tarjetas-doble figure:last-child img{left:-100%}
+.ficha-singapore-gallery.branding-galeria>.aplicacion{width:100%;height:100%;aspect-ratio:4/3;object-fit:cover}
+.ficha-singapore-gallery.promocionales-app{grid-template-columns:minmax(0,1fr)}
+.ficha-singapore-gallery img{display:block;width:100%;height:auto;object-fit:contain;background:#100b1c}
+@media(max-width:700px){.ficha-singapore{padding:66px 18px 36px}.ficha-singapore-app{grid-template-columns:1fr;gap:24px;margin-bottom:28px}.ficha-singapore-branding-intro{grid-template-columns:1fr;gap:18px;margin-bottom:28px}.ficha-singapore-branding-intro .ficha-singapore-intro{order:2}.ficha-singapore-totem{order:1;width:min(100%,480px);height:auto;max-height:none;justify-self:center}.ficha-singapore-gallery{grid-template-columns:1fr;gap:16px}.ficha-singapore-gallery.branding-galeria>.avion{grid-column:auto;aspect-ratio:4/3}.ficha-singapore-gallery.branding-galeria .mascada-tarjetas{grid-column:auto;grid-template-columns:1fr;gap:16px}.ficha-singapore-gallery.branding-galeria .mascada-crop{width:100%;max-width:420px;justify-self:center}.ficha-singapore-gallery.branding-galeria .tarjetas-doble{width:100%}.ficha-singapore-gallery.branding-galeria>.aplicacion{height:auto;aspect-ratio:4/3}}
+.ficha-caffungi{width:100%;min-height:100%;padding:76px clamp(20px,5vw,76px) 68px;background:#3e2616;color:#f8f1e8}
+.ficha-caffungi-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.88fr);grid-template-rows:minmax(0,1fr);align-items:stretch;gap:clamp(24px,5vw,72px);width:min(100%,1280px);margin:0 auto 42px}
+.ficha-caffungi-hero>img{display:block;width:100%;height:100%;min-height:0;max-height:none;object-fit:cover;object-position:center}
+.ficha-caffungi-copy{width:100%;max-width:460px;align-self:center}
+.ficha-caffungi-copy .logo{display:block;width:min(100%,340px);height:auto;margin:0 0 clamp(18px,2.2vw,28px);object-fit:contain}
+.ficha-caffungi-description{max-width:40ch;margin:0;font-size:clamp(17px,1.35vw,20px);font-weight:300;line-height:1.5}
+.ficha-caffungi-cover{display:block;width:min(100%,1480px);height:auto;aspect-ratio:4/3;object-fit:cover;object-position:center;margin:0 auto clamp(30px,3.5vw,44px)}
+.ficha-caffungi-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:clamp(12px,2vw,26px);width:min(100%,1480px);margin:0 auto}
+.ficha-caffungi-gallery img{display:block;width:100%;aspect-ratio:.62;object-fit:cover;object-position:center;background:#3e2616}
+.ficha-caffungi-hero>img{border-radius:2px}
+@media(max-width:700px){.ficha-caffungi{padding:66px 18px 40px}.ficha-caffungi-hero{grid-template-columns:1fr;grid-template-rows:auto;gap:18px;margin-bottom:22px}.ficha-caffungi-hero>img{height:auto;max-height:none;aspect-ratio:3/4}.ficha-caffungi-copy{max-width:none}.ficha-caffungi-copy .logo{width:min(75%,300px)}.ficha-caffungi-description{max-width:48ch}.ficha-caffungi-cover{aspect-ratio:4/3}.ficha-caffungi-gallery{grid-template-columns:1fr;gap:16px}.ficha-caffungi-gallery img{width:100%;height:auto;aspect-ratio:.62}}
+.ficha-quest{width:100%;min-height:100%;padding:78px clamp(20px,5vw,76px) 68px;background:#fff;color:#121a42}
+.ficha-quest-hero{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center;gap:clamp(26px,5vw,72px);width:min(100%,1280px);margin:0 auto clamp(44px,6vw,76px)}
+.ficha-quest-logos{display:block;width:100%;height:auto;max-height:56vh;object-fit:contain}
+.ficha-quest-copy{display:grid;justify-items:start;gap:12px;max-width:620px}
+.ficha-quest-copy h2{margin:0;color:#293d94;font:400 clamp(46px,5.5vw,78px)/.96 "Instrument Serif",Georgia,serif}
+.ficha-quest-copy .subtitulo{display:block;color:#293d94;font:500 clamp(18px,1.6vw,24px)/1.3 var(--font-body)}
+.ficha-quest-copy p{margin:8px 0 0;color:#121212;font-size:clamp(17px,1.25vw,20px);font-weight:300;line-height:1.55}
+.ficha-quest-cover{display:block;width:min(100%,1480px);height:auto;margin:0 auto clamp(26px,4vw,48px);object-fit:contain}
+.ficha-quest-gallery{display:block;width:min(100%,1480px);margin:0 auto}
+.ficha-quest-gallery img{display:block;width:100%;height:auto;object-fit:contain}
+@media(max-width:700px){.ficha-quest{padding:66px 18px 40px}.ficha-quest-hero{grid-template-columns:1fr;gap:22px;margin-bottom:36px}.ficha-quest-logos{width:min(100%,500px);max-height:none;justify-self:center}.ficha-quest-copy{gap:8px}.ficha-quest-copy h2{font-size:54px}.ficha-quest-copy p{margin-top:8px}}
+.ficha-luma{width:100%;min-height:100%;padding:78px clamp(20px,5vw,76px) 68px;background:#f4e6df;color:#171313}
+.ficha-luma-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:clamp(26px,5vw,72px);width:min(100%,1280px);margin:0 auto 42px}
+.ficha-luma-hero>img{display:block;width:100%;height:auto;max-height:78vh;object-fit:contain}
+.ficha-luma-copy h2{margin:0;color:#791e2a;font:400 clamp(54px,7vw,104px)/.9 "Instrument Serif",Georgia,serif}
+.ficha-luma-subtitle{display:block;margin-top:10px;color:#791e2a;font:400 clamp(26px,3vw,42px)/1.05 "Instrument Serif",Georgia,serif}
+.ficha-luma-copy p{margin:24px 0 0;font-size:clamp(17px,1.35vw,20px);font-weight:300;line-height:1.5}
+.ficha-luma-campaign-frame{width:min(100%,1480px);aspect-ratio:16/10;overflow:hidden;margin:0 auto}
+.ficha-luma-campaign{display:block;width:100%;height:100%;object-fit:cover;object-position:center 50%}
+.ficha-luma-video{display:block;width:min(100%,1300px);height:auto;max-height:80vh;margin:clamp(20px,3vw,42px) auto 0;object-fit:contain;background:#ecd2c9}
+@media(max-width:700px){.ficha-luma{padding:66px 18px 40px}.ficha-luma-hero{grid-template-columns:1fr;gap:18px;margin-bottom:26px}.ficha-luma-hero>img{max-height:none}.ficha-luma-copy h2{font-size:66px}.ficha-luma-copy p{margin-top:18px}.ficha-luma-video{max-height:none}}
+.ficha-ecoalerta{width:100%;min-height:100%;padding:78px clamp(20px,5vw,76px) 68px;background:#000;color:#f8f4ed}
+.ficha-ecoalerta-hero{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);align-items:center;gap:clamp(24px,5vw,72px);width:min(100%,1320px);margin:0 auto 44px}
+.ficha-ecoalerta-copy .logo{display:block;width:min(100%,360px);height:auto;margin:0 0 18px;object-fit:contain}
+.ficha-ecoalerta-copy h2{margin:0 0 12px;color:#f8f4ed;font:400 clamp(48px,6vw,86px)/.95 "Instrument Serif",Georgia,serif}
+.ficha-ecoalerta-copy .subtitulo{display:block;margin:0 0 16px;color:#8fd694;font:400 clamp(22px,2.6vw,34px)/1.08 "Instrument Serif",Georgia,serif}
+.ficha-ecoalerta-copy p{max-width:62ch;margin:0;font-size:clamp(17px,1.3vw,20px);font-weight:300;line-height:1.5}
+.ficha-ecoalerta-copy .colaboracion{margin-top:14px;font-size:clamp(14px,1.05vw,16px);font-weight:400}
+.ficha-ecoalerta-personaje{display:flex;width:min(100%,430px);align-items:flex-end;justify-content:center;min-height:0;aspect-ratio:1;border-radius:50%;background:#74bd77;overflow:hidden;justify-self:center}
+.ficha-ecoalerta-personaje img{display:block;width:92%;height:92%;object-fit:contain;object-position:center bottom;transform:translateY(12%)}
+.ficha-ecoalerta-mockup-frame{width:min(100%,1600px);margin:clamp(18px,3vw,40px) auto 0;padding:0;background:transparent}
+.ficha-ecoalerta-mockup{display:block;width:100%;height:auto;object-fit:contain;background:transparent}
+.ficha-ecoalerta-galeria{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(18px,3vw,38px);width:min(100%,1600px);margin:0 auto}
+.ficha-ecoalerta-galeria img{display:block;width:100%;height:auto;object-fit:contain;background:#050608}
+@media(max-width:700px){.ficha-ecoalerta{padding:66px 18px 40px}.ficha-ecoalerta-hero{grid-template-columns:1fr;gap:22px;margin-bottom:28px}.ficha-ecoalerta-copy{grid-row:1}.ficha-ecoalerta-copy .logo{width:min(75%,300px)}.ficha-ecoalerta-personaje{grid-row:2;width:min(100%,340px)}.ficha-ecoalerta-galeria{gap:16px}.ficha-ecoalerta-mockup-frame{padding:0}}
+.ficha-proyecto{position:fixed;inset:0;z-index:1000;width:100vw;height:100vh;height:100dvh;margin:0;padding:0;background:#000;color:#f8f4ed;overflow-y:auto;overscroll-behavior:contain}
+.ficha-proyecto[hidden]{display:none}
+.ficha-proyecto .boton-volver{position:fixed;top:14px;left:18px;z-index:2;width:42px;height:42px;padding:0;border:0;background:transparent;color:#f8f4ed;border-radius:50%;font:32px/1 "Albert Sans",sans-serif;cursor:pointer}
+.ficha-proyecto .boton-volver:hover{background:rgba(255,255,255,.14);color:#fff}
+.ficha-contenido{width:100%;min-height:100%;padding:0 0 28px;background:#000}
+.ficha-cabecera{width:min(100%,1440px);min-height:40vh;max-height:580px;margin:0 auto;padding:64px clamp(28px,7vw,100px) 30px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,5vw,72px);align-items:center}
+.ficha-cabecera.con-video{display:grid;grid-template-columns:minmax(0,1.95fr) minmax(280px,.65fr);width:min(100%,1600px);min-height:0;max-height:none;padding-top:76px;padding-bottom:32px;gap:clamp(24px,4vw,60px)}
+.ficha-cabecera.con-video>div{width:100%;max-width:100%;margin:0;padding:0 clamp(8px,1vw,16px)}
+.ficha-cabecera.con-video.social-media-hero{transform:translateX(-14px)}
+.ficha-cabecera.descripcion-arriba{grid-template-columns:minmax(0,1fr);width:min(100%,1480px);min-height:0;max-height:none;padding:76px clamp(28px,7vw,100px) 28px;align-items:start}
+.ficha-cabecera.descripcion-arriba>div{max-width:1120px}
+.ficha-cabecera.descripcion-arriba.portada-descripcion{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);align-items:center}
+.ficha-cabecera.portada-descripcion>img{width:100%;max-width:none;height:min(72vh,740px);max-height:none;object-fit:cover}
+.ficha-cabecera.portada-descripcion>div{max-width:680px}
+.ficha-cabecera.portada-descripcion .ficha-titulo.titulo-una-linea{font-size:clamp(34px,4vw,68px)}
+.ficha-titulo.titulo-una-linea{font-size:clamp(36px,4.3vw,76px);white-space:nowrap}
+.ficha-software{display:flex;align-items:center;gap:9px;margin-top:17px;color:#f8f4ed;font-size:13px;font-weight:300}
+.ficha-software img{display:block;width:25px;height:26px;object-fit:contain}
+.ficha-cabecera>img{display:block;width:100%;max-width:540px;max-height:500px;justify-self:center;object-fit:contain;background:transparent}
+.ficha-video-hero{display:block;width:100%;height:auto;max-height:82vh;object-fit:contain;margin:0;background:#000}
+.ficha-titulo{font-family:"Instrument Serif",Georgia,serif;font-size:clamp(38px,5vw,92px);line-height:.98;font-weight:400;margin:0 0 14px;color:#f8f4ed}
+.ficha-marca{display:block;margin:-4px 0 20px;color:#f8f4ed;font:400 clamp(26px,3vw,42px)/1.05 "Instrument Serif",Georgia,serif}
+.ficha-resumen{display:block}
+.ficha-resumen p{font-size:clamp(15px,1.2vw,18px);font-weight:300;line-height:1.32;margin:0}
+.ficha-video-inline{display:block;width:min(100%,420px);height:auto;max-height:38vh;object-fit:contain;margin:16px 0 0;background:#000}
+.ficha-galeria{width:100%;margin:0;overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;scrollbar-width:thin;scroll-snap-type:x mandatory;touch-action:pan-x pan-y}
+.ficha-galeria img{display:block;width:max(100%,1366px);max-width:none;height:auto;max-height:none;object-fit:contain;scroll-snap-align:start}
+.ficha-secundaria{display:block;width:100%;height:auto;object-fit:contain;margin:0 auto}
+.ficha-video{width:min(100%,700px);margin:30px auto;background:#000}
+.ficha-video.video-grande{width:min(100%,1480px);margin:0 auto 48px;padding:0 clamp(18px,4vw,56px);box-sizing:border-box}
+.ficha-video video{display:block;width:100%;height:auto;max-height:75vh;object-fit:contain}
+.ficha-secuencia{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(18px,3vw,42px);width:min(100%,1440px);margin:0 auto;padding:clamp(20px,4vw,56px) clamp(18px,4vw,56px)}
+.ficha-secuencia figure{margin:0;display:flex;justify-content:center;align-items:center;background:#000}
+.ficha-secuencia img{display:block;width:96%;height:auto;margin:0 auto;object-fit:contain}
+.ficha-secuencia .pagina-portada img{width:min(96%,660px)}
+.ficha-maupassant{width:100%;padding:72px clamp(20px,5vw,76px) 64px;background:#000;color:#f8f4ed}
+.ficha-maupassant-hero{width:min(100%,1480px);min-height:42vh;margin:0 auto 64px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,76px);align-items:center}
+.ficha-maupassant-cover{display:block;width:100%;height:auto;max-height:72vh;object-fit:contain}
+.ficha-maupassant-intro{width:100%;margin:0}
+.ficha-maupassant-intro .ficha-titulo{max-width:18ch;margin-bottom:20px}
+.ficha-maupassant-intro .ficha-resumen{max-width:78ch}
+.ficha-maupassant-libro{width:min(100%,1320px);margin:0 auto 64px}
+.ficha-maupassant-libro h3{margin:0 0 20px;font:400 clamp(28px,4vw,54px)/1.05 "Instrument Serif",Georgia,serif;color:#f8f4ed}
+.ficha-maupassant-libro img{display:block;width:100%;height:auto;max-height:none;object-fit:contain}
+.ficha-maupassant-libro.libro-uno{width:min(100%,1500px)}
+.ficha-maupassant-libro.libro-dos{width:min(100%,1500px)}
+@media(max-width:700px){.ficha-secuencia{gap:14px;padding:20px 12px}.ficha-cabecera.con-video{grid-template-columns:1fr;gap:22px;padding:68px 22px 26px}.ficha-cabecera.con-video.social-media-hero{transform:none}.ficha-cabecera.con-video>div{max-width:none}.ficha-video-hero{max-height:none}.ficha-maupassant{padding:66px 18px 36px}.ficha-maupassant-hero{grid-template-columns:1fr;gap:26px;min-height:0;margin-bottom:42px}.ficha-maupassant-cover{max-height:none}.ficha-maupassant-intro{margin:0}.ficha-maupassant-libro{margin-bottom:42px}}
+@media(max-width:700px){.ficha-cabecera.descripcion-arriba.portada-descripcion{grid-template-columns:1fr}.ficha-cabecera.portada-descripcion>img{height:min(60vh,600px)}}
+@media(max-width:700px){.ficha-stand{padding:66px 18px 36px}.ficha-stand-hero{margin-bottom:30px}.ficha-stand-copy{max-width:none}.ficha-stand-gallery{grid-template-columns:1fr;gap:16px}.ficha-stand-gallery img:first-child,.ficha-stand-gallery img:last-child{grid-column:auto}}
+@media(max-width:700px){.ficha-personaje{padding:66px 18px 36px}.ficha-personaje-hero{grid-template-columns:1fr;gap:24px;margin-bottom:34px}.ficha-personaje-cover{width:min(100%,520px);max-height:none;justify-self:center}.ficha-personaje-gallery{grid-template-columns:1fr;gap:16px}.ficha-personaje-gallery img:first-child,.ficha-personaje-gallery img:nth-child(4){grid-column:auto}}
+@media(max-width:699px){.subcategorias.motion-graphics{grid-template-columns:1fr;gap:16px}.ficha-motion-secuencia{grid-template-columns:1fr;padding:20px 12px}.motion-graphics .subcategoria-item figure,.motion-graphics .subcategoria-item figure.video-media{aspect-ratio:1}}
+@media(max-width:700px){.ficha-titulo.titulo-una-linea{font-size:clamp(26px,6.4vw,44px)}}
+@media(max-width:480px){.ficha-cabecera{grid-template-columns:1fr;gap:14px;padding:64px 22px 26px;min-height:0}.ficha-cabecera>img{max-height:min(52vh,360px)}.ficha-titulo{font-size:42px}.ficha-titulo.titulo-una-linea{font-size:clamp(24px,6.2vw,30px)}.ficha-galeria img{width:1366px}}
+.subcategorias:not(.motion-graphics){grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.subcategorias:not(.motion-graphics) .subcategoria-item figure:not(.video-media){aspect-ratio:1;background:#000}
+@media(max-width:699px){.subcategorias:not(.motion-graphics){grid-template-columns:1fr;gap:16px}}
+
+/* Boton volver */
+.boton-volver{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--space-sm);
+  background:var(--color-background);
+  color:var(--color-primary);
+  border:1px solid var(--color-primary);
+  border-radius:var(--radius-pill);
+  padding:8px 20px;
+  font-size:var(--size-caption);
+  cursor:pointer;
+  margin-bottom:var(--space-lg);
+  min-height:44px;
+}
+.boton-volver:hover{background:var(--color-primary);color:var(--color-background)}
+
+/* === CONTACTO === */
+.contacto{background:var(--color-primary);color:var(--color-primary-on)}
+.contacto h2{color:var(--color-primary-on)}
+.tarjetas-contacto{list-style:none;margin:var(--space-lg) 0 0;padding:0;display:grid;grid-template-columns:1fr;gap:var(--space-md)}
+.tarjetas-contacto a{display:block;background:var(--color-background);color:var(--color-primary);border-radius:var(--radius-card);padding:var(--space-lg);text-decoration:none;min-height:44px;transition:transform .2s ease}
+.tarjetas-contacto a:hover{transform:translateY(-2px);text-decoration:underline}
+.tarjetas-contacto strong{display:block;font-family:var(--font-heading);font-size:20px;font-weight:400}
+
+/* === FOOTER === */
+.pie-pagina{background:var(--color-ink);color:var(--color-background);padding:var(--space-lg) 0}
+.pie-pagina .wrap{display:flex;flex-wrap:wrap;gap:var(--space-md);align-items:center;justify-content:space-between}
+.pie-pagina img{display:block;width:auto;height:auto;max-width:min(180px,100%);max-height:32px;object-fit:contain;flex:0 1 auto}
+.pie-pagina p{font-size:var(--size-caption);margin:0}
+.enlace{color:var(--color-primary);text-decoration:none}
+.enlace:hover{text-decoration:underline}
+.contacto .enlace{color:var(--color-primary)}
+
+/* === RESPONSIVE === */
+@media (min-width:700px){
+  .portada{grid-template-columns:1fr 1fr;min-height:600px}
+  .about-grid{grid-template-columns:1fr 1fr}
+  .categorias-menu{grid-template-columns:1fr 1fr}
+  .subcategorias{grid-template-columns:1fr 1fr}
+  .tarjetas-contacto{grid-template-columns:1fr 1fr}
+  .iconos-grid{grid-template-columns:repeat(7,1fr)}
+  .habilidades-circulos{grid-template-columns:repeat(3,1fr)}
+  .carpeta{padding:var(--space-xl)}
+}
+@media (min-width:1024px){
+  .categorias-menu{grid-template-columns:repeat(4,1fr)}
+  .subcategorias{grid-template-columns:1fr 1fr 1fr}
+  .carpeta{padding:var(--space-xxl)}
+  .carpetas-stage{min-height:800px}
+  .habilidades-circulos{grid-template-columns:repeat(5,1fr)}
+}
+/* === PORTADA basada en la previsualización === */
+.carpetas-contenedor{padding:24px 0 56px}
+.carpetas-stage{min-height:980px;background:var(--color-secondary);border:2px solid var(--color-background);border-radius:32px;overflow:visible}
+.carpeta{max-height:none;overflow:visible;box-shadow:none;border-radius:30px 30px 0 0;padding:0;background:transparent}
+.carpeta::before{top:-38px;left:12%;border:0;border-radius:24px 24px 0 0;padding:6px 34px;font-family:var(--font-accent);font-style:italic;font-size:30px;text-transform:lowercase;letter-spacing:0;background:var(--color-background);color:var(--color-primary)}
+.carpeta.activa::before{background:var(--color-background);color:var(--color-primary);border-color:transparent}
+.carpeta.fondo-1,.carpeta.fondo-2{display:none}
+.portada{position:relative;min-height:340px;padding:36px 7%;grid-template-columns:1.2fr .8fr;gap:32px;background:var(--color-primary);border-radius:30px 30px 0 0}
+.portada-texto h1{font-size:clamp(44px,6vw,64px);line-height:.95;margin-bottom:18px}
+.portada-texto p{font-size:13px;line-height:1.35;margin:0 0 10px}
+.etiquetas-portada{gap:8px;margin-top:20px}
+.etiquetas-portada li{padding:4px 18px;font-weight:600}
+.polaroid{width:min(100%,360px);background:transparent;padding:0;box-shadow:none;transform:scale(1.3);transform-origin:center;max-width:360px}
+.polaroid img{width:100%;aspect-ratio:auto;object-fit:contain}
+.polaroid figcaption{display:none}
+.polaroid::before{display:none}
+.categorias-menu{grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);grid-template-columns:none;gap:10px;margin:0;overflow-x:auto;padding-bottom:4px}
+.categoria-item{border-radius:0;background:var(--color-primary);aspect-ratio:1.2;min-width:0}
+.categoria-item img{height:100%;opacity:1;object-fit:cover}
+.categoria-item .categoria-label{font-family:var(--font-display);font-size:clamp(14px,2vw,22px);padding:10px;background:linear-gradient(transparent,rgba(76,5,12,.9))}
+.carpeta.activa#carpeta-proyectos{background:var(--color-secondary);padding:48px 18px 32px;border-radius:30px;}
+.carpeta.activa#carpeta-proyectos::before{background:var(--color-secondary);left:66%}
+.carpeta.activa#carpeta-proyectos h2{color:var(--color-primary)}
+.categoria-item:focus-visible{outline-color:var(--color-background)}
+.navegacion a{text-transform:uppercase}
+@media(max-width:699px){.site-header .wrap{flex-wrap:wrap;padding-top:12px;padding-bottom:12px}.marca img{height:28px}.navegacion{margin-left:auto}.navegacion ul{gap:5px}.navegacion a{padding:7px 10px;font-size:11px;min-height:40px}}
+@media(max-width:420px){.site-header .wrap{justify-content:center}.marca{margin-right:auto}.navegacion{width:100%;margin:4px 0 0}.navegacion ul{width:100%;justify-content:space-between}.navegacion a{padding:6px 8px;font-size:10px}}
+@media(max-width:699px){.carpetas-stage{min-height:1000px}.portada{grid-template-columns:1fr .72fr;min-height:350px;padding:32px 7%;gap:8px}.portada-texto h1{font-size:clamp(38px,9vw,56px)}.etiquetas-portada li{padding:3px 10px;font-size:11px}.categoria-item{aspect-ratio:.92}.carpeta.activa#carpeta-proyectos .categorias-menu{grid-auto-columns:minmax(220px,1fr)}.carpeta[data-view="about"],.carpeta[data-view="contacto"]{padding:40px 20px}}
+/* Carpetas interactivas: Projects al frente y About me disponible en su pestaña. */
+.intro-portada{width:100vw;margin:0 calc(50% - 50vw);padding:0;line-height:0}
+.intro-portada>img{display:block;width:100%;height:auto}
+.carpetas-contenedor{margin:0 12px;padding:0 0 56px}
+.folder-tabs{display:flex;justify-content:space-around;align-items:flex-end;gap:24px;position:relative;z-index:3;margin:0 0 -2px;padding:0 7%}
+.folder-tab{width:min(28%,220px);min-height:40px;border:2px solid var(--color-background);border-bottom:0;border-radius:24px 24px 0 0;background:var(--color-background);color:var(--color-primary);font:italic 28px/1 var(--font-accent);cursor:pointer;transition:transform .2s ease,filter .2s ease}
+.folder-tab[data-folder-tab="proyectos"]{background:var(--color-secondary)}
+.folder-tab.seleccionada{transform:translateY(-5px);filter:brightness(1.04)}
+.folder-tab:focus-visible{outline-color:var(--color-primary);outline-offset:2px;z-index:2}
+.carpetas-stage{min-height:0;background:var(--color-secondary);border:2px solid var(--color-background);border-radius:30px;overflow:hidden}
+.carpeta,.carpeta.activa{position:relative;inset:auto;display:block;max-height:none;min-height:0;overflow:visible;opacity:1;transform:none;padding:32px;background:transparent;border-radius:28px;box-shadow:none;z-index:1}
+.carpeta[hidden]{display:none!important}
+.carpeta::before{display:none}
+.carpeta.fondo-1,.carpeta.fondo-2{display:none}
+.carpeta.activa#carpeta-proyectos{padding:32px;background:var(--color-secondary);border-radius:28px}
+.carpeta.activa#carpeta-sobre-mi{background:var(--color-background);color:var(--color-ink)}
+.carpeta.activa#carpeta-sobre-mi h2,.carpeta.activa#carpeta-sobre-mi h3{color:var(--color-primary)}
+.perfil-profesional{max-width:72ch}
+.carpeta.activa.contacto{background:var(--color-primary);color:var(--color-primary-on)}
+.carpeta.activa.contacto h2{color:var(--color-primary-on)}
+.carpeta.activa.contacto .tarjetas-contacto{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.carpeta .categorias-menu{grid-auto-columns:minmax(220px,1fr);grid-template-columns:none;grid-auto-flow:column;overflow-x:auto;padding:0 0 8px}
+.carpeta .categoria-item{aspect-ratio:1.2}
+.carpeta.activa#carpeta-sobre-mi .about-grid{display:block;margin-top:0}
+.carpeta.activa#carpeta-sobre-mi .about-grid>.about-col{width:100%}
+.formacion-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-md)}
+.formacion-item{height:100%;margin-bottom:0}
+.about-bottom{display:grid;grid-template-columns:minmax(0,2fr) minmax(220px,1fr);gap:var(--space-xl);margin-top:var(--space-xl);align-items:start}
+.about-bottom .iconos-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:699px){.intro-portada{padding:0}.folder-tabs{gap:12px;padding:0 4%}.folder-tab{width:42%;font-size:23px;min-height:36px}.carpetas-contenedor{margin:0 8px}.carpeta,.carpeta.activa,.carpeta.activa#carpeta-proyectos{padding:24px 14px}.carpeta .categorias-menu{grid-auto-columns:minmax(210px,75vw)}}
+@media(max-width:699px){.formacion-items{grid-template-columns:1fr}.about-bottom{grid-template-columns:1fr}.about-bottom .iconos-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+/* Portada de inicio reconstruida con los elementos editables del diseño */
+body{background-color:#780e17;background-image:none}
+.intro-portada{width:100vw;margin:0 calc(50% - 50vw);padding:0;background:#780e17;line-height:normal}
+.intro-portada .portada{position:relative;width:min(100%,1200px);min-height:clamp(430px,43vw,500px);margin:0 auto;padding:38px 12% 62px;display:block;background:transparent;border-radius:0}
+.portada-texto{width:50%;transform:translateY(18px)}
+.portada-eyebrow{margin:0 0 14px;color:#fbfcf0;font-size:var(--size-caption);font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+.portada-texto h1{margin:0 0 34px;color:#fbfcf0;font-family:"Instrument Serif",Georgia,serif;font-weight:400;line-height:.96}
+.portada-saludo,.portada-nombre{display:block}
+.portada-saludo{font-family:"Albert Sans",sans-serif;font-size:clamp(34px,5.2vw,58px);font-weight:300;line-height:1.08;letter-spacing:-.035em}
+.portada-nombre{font-family:"Instrument Serif",Georgia,serif;font-size:clamp(55px,7.3vw,88px);font-weight:400;line-height:.98;white-space:nowrap}
+.portada-texto p{max-width:42ch;margin:0 0 18px;color:#fbfcf0;font-size:clamp(14px,1.35vw,17px);font-weight:300;line-height:1.28}
+.portada-polaroid{position:absolute;top:50%;right:8%;display:block;width:min(38%,420px);height:auto;transform:translateY(-50%);object-fit:contain}
+.carpetas-contenedor{position:relative;width:min(94vw,1120px);margin:-50px auto 0;padding:0 0 56px}
+.carpetas-stage{position:relative;min-height:0;background:transparent;border:0;border-radius:0;overflow:visible}
+.carpetas-stage[data-active-folder="proyectos"]{background:transparent;border-radius:0}
+.fondo-carpeta-contacto{display:none;position:absolute;z-index:0;top:-18px;left:-10%;width:120%;max-width:none;height:auto;clip-path:inset(0 0 93.5% 0);pointer-events:none}
+.carpetas-stage[data-active-folder="contacto"] .fondo-carpeta-contacto{display:block;z-index:2;clip-path:none}
+.carpetas-stage[data-active-folder="contacto"] .fondo-carpeta-proyectos{z-index:1}
+.fondo-carpeta-sobremi{display:none;position:absolute;z-index:1;top:-18px;left:0;width:100%;height:auto;pointer-events:none}
+.carpetas-stage[data-active-folder="proyectos"] .fondo-carpeta-sobremi{display:block}
+.fondo-carpeta-proyectos{position:absolute;z-index:2;top:-30px;left:-4.5%;width:120%;max-width:none;height:auto;pointer-events:none}
+.fondo-carpeta-proyectos{filter:url(#filtro-carpeta-beige)}
+.carpetas-stage[data-active-folder="proyectos"] .fondo-carpeta-proyectos{top:-48px;left:-11.5%;width:123%}
+.abrir-proyectos-carpeta{position:absolute;z-index:3;top:-30px;left:-4.5%;width:120%;height:96px;padding:0;border:0;background:transparent;cursor:pointer}
+.carpetas-stage[data-active-folder="proyectos"] .fondo-carpeta-proyectos{top:-48px}
+.carpetas-stage[data-active-folder="proyectos"] .abrir-proyectos-carpeta{top:-48px}
+.carpetas-stage[data-active-folder="proyectos"] .abrir-proyectos-carpeta{display:none}
+.folder-tabs{position:absolute;z-index:5;inset:0;display:block;margin:0;padding:0;pointer-events:none}
+.folder-tab,.folder-tab[data-folder-tab="proyectos"]{position:absolute;display:block;width:25%;height:17%;min-height:0;padding:0;border:0;border-radius:0;background:transparent;color:transparent;transform:none!important;filter:none!important;pointer-events:auto}
+.folder-tab[data-folder-tab="sobre-mi"]{top:0;left:12%;}
+.folder-tab[data-folder-tab="proyectos"]{top:-30px;left:67%;width:25%;height:9%;}
+.folder-tab[data-folder-tab="contacto"]{display:none;top:-18px;left:12%;width:24%;height:9%;}
+.carpetas-stage[data-active-folder="proyectos"] .folder-tab[data-folder-tab="sobre-mi"]{top:-18px;left:12%;}
+.carpetas-stage[data-active-folder="proyectos"] .folder-tab[data-folder-tab="proyectos"]{top:-48px;left:67%;width:25%}
+.carpetas-stage[data-active-folder="contacto"] .folder-tab[data-folder-tab="contacto"]{display:block;top:-18px;left:12%;}
+.folder-tab:focus-visible{outline:3px solid #fbfcf0;outline-offset:2px;background:rgba(255,255,255,.08)}
+.solo-lectores{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.carpeta,.carpeta.activa{position:relative;z-index:3;max-height:none;min-height:0;overflow:visible;padding:0;background:transparent;border-radius:0;box-shadow:none;opacity:1;transform:none}
+.carpeta[hidden]{display:none!important}
+.carpeta::before{display:none}
+.carpeta.fondo-1,.carpeta.fondo-2{display:none}
+.carpeta.activa#carpeta-sobre-mi{padding:0;background:transparent;pointer-events:none}
+.about-portada-arte{display:block;width:100%;height:auto;margin:0;pointer-events:none}
+.carpeta.activa#carpeta-proyectos{position:relative;z-index:3;padding:54px 13% 28px;background:transparent;border-radius:0}
+.carpeta.activa#carpeta-proyectos{box-sizing:border-box;left:0;width:100%;padding:54px 10% 28px;overflow:hidden}
+.carpeta.activa#carpeta-proyectos .categorias-menu{width:100%;max-width:100%;box-sizing:border-box}
+.carpeta.activa#carpeta-proyectos .categoria-item{min-width:0;max-width:100%;box-sizing:border-box}
+.carpeta.activa#carpeta-proyectos h2{color:var(--color-primary)}
+.carpeta.activa#carpeta-proyectos>h2{margin:0 0 8px}
+.carpeta.activa#carpeta-proyectos>p{max-width:none;margin:0 0 18px}
+.carpeta.activa#carpeta-proyectos .categorias-menu{display:grid;grid-template-columns:none;grid-template-rows:1fr;grid-auto-flow:column;grid-auto-columns:calc((100% - 16px)/2);gap:16px;margin:0;padding:0 0 8px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:thin;overscroll-behavior-inline:contain}
+.carpeta.activa#carpeta-proyectos .categoria-item{min-width:0;aspect-ratio:1;border-radius:4px;background:transparent;scroll-snap-align:start}
+.carpeta.activa#carpeta-proyectos .categoria-item img{width:100%;height:100%;opacity:1;object-fit:cover}
+#carpetas-stage:has(#vista-subcategorias:not([hidden])) .fondo-carpeta-proyectos,
+#carpetas-stage:has(#vista-subcategorias:not([hidden])) .fondo-carpeta-sobremi{visibility:hidden}
+#carpeta-proyectos:has(#vista-subcategorias:not([hidden])){background:var(--color-background)!important;color:#000;border-radius:0}
+#carpeta-proyectos:has(#vista-subcategorias:not([hidden])) h2,
+#carpeta-proyectos:has(#vista-subcategorias:not([hidden])) #titulo-categoria{color:var(--color-primary)}
+#carpeta-proyectos:has(#vista-subcategorias:not([hidden])) .subcategoria-item{background:var(--color-background);border-color:var(--color-primary);color:#000}
+#carpeta-proyectos:has(#vista-subcategorias:not([hidden])) .subcategoria-item h4{color:var(--color-primary)}
+#carpeta-proyectos:has(#vista-subcategorias:not([hidden])) .subcategoria-item p{color:#000}
+#carpeta-proyectos:has(#vista-subcategorias:not([hidden])) .subcategoria-item .abrir-proyecto{border-color:var(--color-primary);color:var(--color-primary)}
+.carpeta.activa#carpeta-contacto{position:relative;z-index:3;min-height:560px;padding:105px 16% 56px 12%;background:transparent;color:var(--color-primary)}
+.carpeta.activa#carpeta-contacto h2{color:var(--color-primary);font-family:var(--font-accent);font-size:clamp(30px,4vw,48px);font-weight:400;margin:0 0 12px}
+.carpeta.activa#carpeta-contacto .contacto-pregunta{max-width:none;margin:0;color:var(--color-primary);font-family:var(--font-display);font-size:clamp(34px,5vw,60px);font-weight:400;line-height:1.05}
+.carpeta.activa#carpeta-contacto .tarjetas-contacto{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));max-width:900px}
+.carpeta.activa#carpeta-contacto .tarjetas-contacto a{background:rgba(251,252,240,.82);border:1px solid rgba(76,5,12,.35)}
+.carpeta.activa#carpeta-contacto .tarjetas-contacto a:hover,.carpeta.activa#carpeta-contacto .tarjetas-contacto a:focus-visible,.carpeta.activa#carpeta-contacto .tarjetas-contacto a:active{background:var(--color-primary);color:var(--color-primary-on);transform:translateY(-2px);text-decoration:underline}
+.subcategoria-item[data-abre-ficha="true"]{cursor:pointer}
+.subcategoria-item[data-abre-ficha="true"]:focus-visible{outline:3px solid var(--color-primary);outline-offset:3px}
+@media(max-width:699px){
+ .intro-portada .portada{display:grid;grid-template-columns:1fr;min-height:0;gap:8px;padding:36px 8% 72px;text-align:left}
+ .portada-texto{width:100%;transform:translateY(8px)}
+ .portada-texto h1{margin-bottom:22px}
+ .portada-saludo{font-size:clamp(34px,9vw,52px)}
+ .portada-nombre{font-size:clamp(52px,12vw,76px);white-space:normal}
+ .portada-texto p{max-width:48ch;font-size:15px}
+ .portada-polaroid{position:relative;top:auto;right:auto;transform:none;width:min(72%,360px);margin:8px auto 0}
+ .carpetas-contenedor{width:min(94vw,560px);margin:-42px auto 0}
+ .fondo-carpeta-sobremi{top:-18px;left:-10%;width:120%}
+ .fondo-carpeta-contacto{top:-18px;left:-10%;width:120%}
+ .fondo-carpeta-proyectos{top:-18px;left:-16%;width:142%}
+ .abrir-proyectos-carpeta{top:-18px;left:-16%;width:142%;height:68px}
+ .carpetas-stage[data-active-folder="proyectos"] .fondo-carpeta-proyectos{top:-34px;left:-11.5%;width:123%}
+ .carpetas-stage[data-active-folder="proyectos"] .abrir-proyectos-carpeta{top:-34px}
+ .folder-tab[data-folder-tab="sobre-mi"]{top:0;left:12%;width:28%;height:14%}
+ .folder-tab[data-folder-tab="proyectos"]{top:-18px;left:69%;width:29%;height:15%}
+ .carpetas-stage[data-active-folder="proyectos"] .folder-tab[data-folder-tab="proyectos"]{top:-34px;left:69%;width:29%}
+ .folder-tab[data-folder-tab="contacto"]{top:-18px;left:12%;width:24%;height:9%}
+ .carpetas-stage[data-active-folder="proyectos"] .folder-tab[data-folder-tab="sobre-mi"]{top:-18px;left:12%;width:28%;height:14%}
+ .carpeta.activa#carpeta-proyectos{padding:46px 12% 24px}
+ .carpeta.activa#carpeta-proyectos{box-sizing:border-box;left:0;width:100%;padding:46px 10% 24px;overflow:hidden}
+ .carpeta.activa#carpeta-proyectos .categorias-menu{gap:12px;grid-auto-columns:calc((100% - 12px)/2)}
+ .carpeta.activa#carpeta-proyectos .categoria-item{aspect-ratio:1}
+ .carpeta.activa#carpeta-contacto{min-height:560px;padding:78px 14% 40px 10%}
+}
+/* Colores actualizados y tres pestañas accesibles desde la portada. */
+.fondo-carpeta-proyectos{top:0;left:0;width:100%;filter:none}
+.carpetas-stage:not([data-active-folder="proyectos"]) .fondo-carpeta-proyectos{clip-path:inset(0 0 92.5% 0)}
+.carpetas-stage[data-active-folder="proyectos"] .fondo-carpeta-proyectos{top:0;left:0;width:100%}
+.fondo-carpeta-contacto{top:0;left:0;width:100%;filter:none}
+.carpetas-stage:not([data-active-folder="contacto"]) .fondo-carpeta-contacto{display:block;z-index:2;clip-path:inset(0 0 92.5% 0)}
+.carpetas-stage[data-active-folder="contacto"] .fondo-carpeta-contacto{display:block;z-index:2;clip-path:none}
+.folder-tab[data-folder-tab="sobre-mi"]{top:0;left:12%;width:28%;height:12%}
+.folder-tab[data-folder-tab="proyectos"]{top:0;left:39%;width:26%;height:12%}
+.folder-tab[data-folder-tab="contacto"]{display:block;top:0;left:64%;width:27%;height:12%}
+.carpetas-stage[data-active-folder="proyectos"] .folder-tab[data-folder-tab="sobre-mi"]{top:0;left:12%;width:28%}
+.carpetas-stage[data-active-folder="proyectos"] .folder-tab[data-folder-tab="proyectos"]{top:0;left:39%;width:26%}
+.carpetas-stage[data-active-folder="contacto"] .folder-tab[data-folder-tab="sobre-mi"]{top:0;left:12%;width:28%}
+.carpetas-stage[data-active-folder="contacto"] .folder-tab[data-folder-tab="proyectos"]{top:0;left:39%;width:26%}
+.carpetas-stage[data-active-folder="contacto"] .folder-tab[data-folder-tab="contacto"]{top:0;left:64%;width:27%}
+.carpeta.activa#carpeta-contacto{width:100%;min-height:0;aspect-ratio:4031/2756;padding:0;background:transparent}
+.contacto-hotspots{position:absolute;inset:0;z-index:6;pointer-events:none}
+.contacto-hotspot{position:absolute;top:81%;height:10%;display:block;pointer-events:auto;border-radius:8px;outline-offset:2px}
+.contacto-hotspot.whatsapp{left:12%;width:20%}
+.contacto-hotspot.correo{left:35%;width:31%}
+.contacto-hotspot.behance{left:69%;width:23%}
+.contacto-hotspot:hover{background:rgba(121,18,30,.08)}
+.contacto-hotspot:focus-visible{outline:3px solid var(--color-primary);background:rgba(251,252,240,.28)}
+.carpeta.activa#carpeta-proyectos{padding:clamp(100px,8vw,128px) clamp(28px,7%,84px) 52px;text-align:center}
+.carpeta.activa#carpeta-proyectos>h2,.carpeta.activa#carpeta-proyectos>p,.carpeta.activa#carpeta-proyectos #vista-categorias,.carpeta.activa#carpeta-proyectos #vista-subcategorias{width:100%;max-width:940px;margin-left:auto;margin-right:auto}
+.carpeta.activa#carpeta-proyectos>h2{margin-top:0;margin-bottom:12px}
+.carpeta.activa#carpeta-proyectos>p{margin-top:0;margin-bottom:24px}
+.carpeta.activa#carpeta-proyectos #titulo-categoria{text-align:center}
+.carpeta.activa#carpeta-proyectos #vista-subcategorias>.subcategorias{text-align:left}
+#carpetas-stage:has(#vista-subcategorias:not([hidden])) .fondo-carpeta-proyectos{visibility:visible;clip-path:none}
+#carpeta-proyectos:has(#vista-subcategorias:not([hidden])){box-sizing:border-box;width:100%;max-width:100%;overflow:hidden;background:var(--color-secondary)!important;color:var(--color-ink);border-radius:28px}
+.carpeta.activa#carpeta-proyectos #vista-subcategorias{box-sizing:border-box;max-width:100%;overflow:hidden}
+.carpeta.activa#carpeta-proyectos #vista-subcategorias{position:relative;padding:58px 24px 24px;background:var(--color-background);border:1px solid rgba(121,18,30,.16);border-radius:24px;box-shadow:0 10px 28px rgba(54,28,19,.12)}
+.carpeta.activa#carpeta-proyectos #vista-subcategorias>.boton-volver{position:absolute;top:12px;left:18px;margin:0}
+.carpeta.activa#carpeta-proyectos #vista-subcategorias>.subcategorias{display:grid;grid-auto-flow:column;grid-template-columns:none;grid-template-rows:minmax(0,1fr);grid-auto-columns:minmax(460px,74%);width:100%;max-width:100%;box-sizing:border-box;overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scrollbar-width:thin;padding:0 0 14px}
+.carpeta.activa#carpeta-proyectos #vista-subcategorias>.subcategorias>.subcategoria-item{min-width:0;max-width:100%;box-sizing:border-box;scroll-snap-align:start}
+@media(max-width:699px){
+  .fondo-carpeta-proyectos{top:0;left:0;width:100%}
+  .carpetas-stage:not([data-active-folder="proyectos"]) .fondo-carpeta-proyectos{clip-path:inset(0 0 92.5% 0)}
+  .carpetas-stage[data-active-folder="proyectos"] .fondo-carpeta-proyectos{top:0;left:0;width:100%;clip-path:none}
+  .fondo-carpeta-contacto{top:0;left:0;width:100%}
+  .carpetas-stage:not([data-active-folder="contacto"]) .fondo-carpeta-contacto{top:0;left:0;width:100%;clip-path:inset(0 0 92.5% 0)}
+  .folder-tab[data-folder-tab="sobre-mi"]{top:0;left:12%;width:28%;height:12%}
+  .folder-tab[data-folder-tab="proyectos"]{top:0;left:39%;width:26%;height:12%}
+  .folder-tab[data-folder-tab="contacto"]{top:0;left:64%;width:27%;height:12%}
+  .carpeta.activa#carpeta-proyectos{padding:84px 22px 32px}
+  .carpeta.activa#carpeta-proyectos #vista-subcategorias{padding:58px 12px 18px;border-radius:18px}
+  .carpeta.activa#carpeta-proyectos #vista-subcategorias>.subcategorias{grid-auto-columns:minmax(220px,88%)}
+  .carpeta.activa#carpeta-contacto{min-height:0;aspect-ratio:4031/2756;padding:0}
+}
+#carpetas-stage:has(#vista-subcategorias:not([hidden])){min-height:0;background:transparent!important;border:0!important;border-radius:0;overflow:visible}
+#carpetas-stage:has(#vista-subcategorias:not([hidden])) .fondo-carpeta-contacto,
+#carpetas-stage:has(#vista-subcategorias:not([hidden])) .fondo-carpeta-sobremi,
+#carpetas-stage:has(#vista-subcategorias:not([hidden])) .fondo-carpeta-proyectos,
+#carpetas-stage:has(#vista-subcategorias:not([hidden])) .abrir-proyectos-carpeta,
+#carpetas-stage:has(#vista-subcategorias:not([hidden])) .folder-tabs{display:none!important}
+#carpeta-proyectos:has(#vista-subcategorias:not([hidden])){padding:0!important;background:transparent!important;border-radius:0;overflow:visible}
+#carpeta-proyectos:has(#vista-subcategorias:not([hidden]))>h2,
+#carpeta-proyectos:has(#vista-subcategorias:not([hidden]))>p{display:none!important}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="marca" href="#inicio" aria-label="Inicio — Ingrid López">
+      <img src="assets/img/logo/logo_red.png" alt="Firma Ingrid López" width="180" height="32">
+    </a>
+    <nav class="navegacion" id="navegacion" aria-label="Navegacion principal">
+      <ul id="lista-menu">
+        <li><a href="#inicio" data-nav-inicio>Inicio</a></li>
+        <li><a href="#/about" data-nav="sobre-mi">About me</a></li>
+        <li><a href="#/proyectos" data-nav="proyectos">Projects</a></li>
+        <li><a href="#/contacto" data-nav="contacto">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="contenido">
+  <div class="wrap">
+    <section class="intro-portada" id="inicio" aria-label="Presentación de Ingrid López">
+      <div class="portada">
+        <div class="portada-texto">
+          <p class="portada-eyebrow">Portafolio 2026</p>
+          <h1><span class="portada-saludo">Hola, yo soy</span><span class="portada-nombre">Ingrid López</span></h1>
+          <p>Una diseñadora gráfica apasionada por transformar las ideas en conceptos visuales con intención.</p>
+          <p>Me inspiran especialmente el branding y el diseño editorial, donde busco construir identidades y contar historias que conecten.</p>
+        </div>
+        <img class="portada-polaroid" src="assets/img/inicio/polaroid.png" alt="Fotografía de Ingrid en un marco Polaroid" width="1373" height="1546" fetchpriority="high">
+      </div>
+    </section>
+    <div class="carpetas-contenedor">
+      <div class="carpetas-stage" id="carpetas-stage">
+        <img class="fondo-carpeta-contacto" src="assets/img/inicio/contacto_carpeta.png" alt="" aria-hidden="true" width="4031" height="2756">
+        <img class="fondo-carpeta-sobremi" src="assets/img/inicio/carpeta_sobremi.png" alt="" aria-hidden="true" width="3051" height="1970">
+        <img class="fondo-carpeta-proyectos" src="assets/img/inicio/proyectos.png" alt="" aria-hidden="true" width="4031" height="2756">
+        <button class="abrir-proyectos-carpeta" type="button" aria-label="Abrir la carpeta de proyectos"><span class="solo-lectores">Abrir la carpeta de proyectos</span></button>
+        <div class="folder-tabs" role="tablist" aria-label="Secciones principales">
+          <button type="button" class="folder-tab" role="tab" id="tab-sobre-mi" aria-controls="carpeta-sobre-mi" aria-selected="true" data-folder-tab="sobre-mi"><span class="solo-lectores">Sobre mí</span></button>
+          <button type="button" class="folder-tab" role="tab" id="tab-proyectos" aria-controls="carpeta-proyectos" aria-selected="false" data-folder-tab="proyectos"><span class="solo-lectores">Proyectos</span></button>
+          <button type="button" class="folder-tab" role="tab" id="tab-contacto" aria-controls="carpeta-contacto" aria-selected="false" data-folder-tab="contacto"><span class="solo-lectores">Contacto</span></button>
+        </div>
+        <section class="carpeta about-beige" id="carpeta-sobre-mi" data-view="sobre-mi" role="tabpanel" aria-labelledby="tab-sobre-mi" aria-label="Sobre mí" tabindex="0">
+          <img class="about-portada-arte" src="assets/img/inicio/carpeta_sobremi.png" alt="Sobre mí: formación en Diseño Gráfico y Digital en la Universidad La Salle, experiencia en Empatheia, inglés intermedio y herramientas de diseño." width="3051" height="1970">
+        </section>
+
+        <!-- PROJECTS - MENU DE CATEGORIAS -->
+        <section class="carpeta" id="carpeta-proyectos" data-view="proyectos" data-tab="Projects" role="tabpanel" aria-labelledby="tab-proyectos" aria-label="Proyectos" tabindex="0" hidden>
+          <h2>Mis proyectos</h2>
+          <p>Explora mis trabajos por categoria. Selecciona una para ver los proyectos.</p>
+
+          <!-- Vista de categorias -->
+          <div id="vista-categorias">
+            <ul class="categorias-menu">
+              <li class="categoria-item" data-categoria="editorial" tabindex="0" role="button" aria-label="Ver proyectos editoriales">
+                <img src="assets/img/hollywood/hollywood_cover.png" alt="Hollywood Offscreen" loading="lazy">
+                <span class="categoria-label">Editorial</span>
+              </li>
+              <li class="categoria-item" data-categoria="ux" tabindex="0" role="button" aria-label="Ver proyectos UX/UI">
+                <img src="assets/img/portada_singapore_ux.png" alt="Portada del proyecto UX de Singapore Airlines" loading="lazy">
+                <span class="categoria-label">UX / UI</span>
+              </li>
+              <li class="categoria-item" data-categoria="animacion" tabindex="0" role="button" aria-label="Ver proyectos de Motion graphics">
+                <img src="assets/img/stand_Rem/RemBeauty_1_0001.png" alt="Stand 3D de r.e.m. beauty" loading="lazy">
+                <span class="categoria-label">Motion graphics</span>
+              </li>
+              <li class="categoria-item" data-categoria="branding" tabindex="0" role="button" aria-label="Ver proyectos de branding">
+                <img src="assets/img/caffungi/cover.png" alt="Caffungi branding" loading="lazy">
+                <span class="categoria-label">Branding</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Vista de proyectos por categoria -->
+          <div id="vista-subcategorias" hidden>
+            <button class="boton-volver" id="boton-volver" type="button">← Volver a categorias</button>
+            <h3 id="titulo-categoria"></h3>
+            <ul class="subcategorias" id="lista-subcategorias"></ul>
+          </div>
+          <article class="ficha-proyecto" id="ficha-proyecto" hidden role="dialog" aria-modal="true" aria-label="Detalle del proyecto">
+            <button class="boton-volver" id="boton-volver-ficha" type="button" aria-label="Volver a las categorías de proyectos">←</button>
+            <div id="contenido-ficha"></div>
+          </article>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="carpeta fondo-2 contacto" id="carpeta-contacto" data-view="contacto" data-tab="Contact" aria-label="Contacto" hidden>
+          <h2 class="solo-lectores">Contacto</h2>
+          <div class="contacto-hotspots" aria-label="Enlaces de contacto">
+            <a class="contacto-hotspot whatsapp" href="https://wa.me/525525383757" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp al 55 25 38 37 57"><span class="solo-lectores">WhatsApp</span></a>
+            <a class="contacto-hotspot correo" href="mailto:hola.ingridlopez@gmail.com" aria-label="Enviar correo a hola.ingridlopez@gmail.com"><span class="solo-lectores">Enviar correo a hola.ingridlopez@gmail.com</span></a>
+            <a class="contacto-hotspot behance" href="https://www.behance.net/ingridlopez24" target="_blank" rel="noopener" aria-label="Visitar Behance de Ingrid López"><span class="solo-lectores">Visitar Behance</span></a>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="pie-pagina">
+  <div class="wrap">
+    <img src="assets/img/logo/logo_beige.png" alt="Firma Ingrid López en beige" loading="lazy">
+    <p>© <span id="anio">2026</span> Ingrid López · PORTAFOLIO</p>
+  </div>
+</footer>
+<script>
+(function(){
+  var nav=document.getElementById('navegacion');
+
+  // Sistema de carpetas
+  var carpetas=document.querySelectorAll('.carpeta');
+  var stage=document.getElementById('carpetas-stage');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function activarCarpeta(key){
+    stage.setAttribute('data-active-folder',key);
+    carpetas.forEach(function(c){
+      var esVisible=c.getAttribute('data-view')===key;
+      c.hidden=!esVisible;
+      c.classList.toggle('activa',esVisible);
+      if(esVisible){
+        c.classList.remove('fondo-1','fondo-2');
+      }
+    });
+    var ocultas=Array.prototype.filter.call(carpetas,function(c){return c.hidden;});
+    ocultas.forEach(function(c,i){
+      c.classList.remove('fondo-1','fondo-2');
+      if(i===0)c.classList.add('fondo-1');
+      if(i===1)c.classList.add('fondo-2');
+    });
+    var routes={'sobre-mi':'about','proyectos':'proyectos','contacto':'contacto'};
+    if(routes[key]&&location.hash!=='#/'+routes[key]){
+      location.hash='#/'+routes[key];
+    }
+    document.querySelectorAll('[data-folder-tab]').forEach(function(tab){
+      var selected=tab.getAttribute('data-folder-tab')===key;
+      tab.setAttribute('aria-selected',selected?'true':'false');
+      tab.classList.toggle('seleccionada',selected);
+    });
+    nav.querySelectorAll('a[data-nav]').forEach(function(a){
+      if(a.getAttribute('data-nav')===key){
+        a.setAttribute('aria-current','page');
+      }else{
+        a.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  document.querySelectorAll('[data-folder-tab]').forEach(function(tab){
+    tab.addEventListener('click',function(){
+      activarCarpeta(tab.getAttribute('data-folder-tab'));
+      stage.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+    });
+  });
+
+  var abrirProyectosCarpeta=document.querySelector('.abrir-proyectos-carpeta');
+  abrirProyectosCarpeta.addEventListener('click',function(){
+    activarCarpeta('proyectos');
+    stage.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+  });
+
+  // Navegacion superior
+  nav.querySelectorAll('a[data-nav]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var target=a.getAttribute('data-nav');
+      activarCarpeta(target);
+      stage.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+    });
+  });
+
+  // Hash routing
+  function current(){
+    var h=(location.hash||'').replace('#/','').replace('#','');
+    var hashViews={'about':'sobre-mi','proyectos':'proyectos','contacto':'contacto'};
+    return hashViews[h]||'sobre-mi';
+  }
+  window.addEventListener('hashchange',function(){activarCarpeta(current());});
+  activarCarpeta(current());
+
+  // Projects - navegacion entre categorias y subcategorias
+  var vistaCategorias=document.getElementById('vista-categorias');
+  var vistaSubcategorias=document.getElementById('vista-subcategorias');
+  var tituloCategoria=document.getElementById('titulo-categoria');
+  var listaSubcategorias=document.getElementById('lista-subcategorias');
+  var botonVolver=document.getElementById('boton-volver');
+  var fichaProyecto=document.getElementById('ficha-proyecto');
+  var contenidoFicha=document.getElementById('contenido-ficha');
+  var botonVolverFicha=document.getElementById('boton-volver-ficha');
+  var bodyOverflowAnterior='';
+  document.body.appendChild(fichaProyecto);
+
+  var proyectosData={
+    'editorial':{
+      titulo:'Editorial',
+      proyectos:[
+        {titulo:'Hollywood Offscreen',img:'assets/img/hollywood/hollywood_cover.png',video:'assets/img/hollywood/video.mov',videoInline:true,autoplay:true,secuencia:['portada_ho.png','carta_ho.png','01.png','02.png','3.png','04.png','5.png','6.png','7.png','8.png','9.png','10.png','11.png','contraportada_ho.png'],tipo:'Diseño editorial y desarrollo de fanzine.',categoria:'Editorial · Publicación independiente · Diseño gráfico.',contribucion:'100% — Proyecto individual.',alcance:'Conceptualización, diseño editorial y diagramación de una publicación de 32 páginas, selección tipográfica y desarrollo de una propuesta visual con una atmósfera oscura y reflexiva.',desc:'Hollywood Offscreen es un fanzine editorial que explora los aspectos oscuros y polémicos de la industria del entretenimiento. A través de una propuesta visual de carácter editorial, la publicación busca mostrar una perspectiva menos visible de Hollywood, utilizando la composición y la tipografía para reforzar su narrativa.'},
+        {titulo:'Colección de clásicos',subtitulo:'The Folio Society',fichaTitulo:'Colección de clásicos<br>The Folio Society',maupassant:true,img:'assets/img/portadas%20maupassant/cover.png',cover:'assets/img/portadas%20maupassant/cover.png',libroUno:'assets/img/portadas%20maupassant/La%20hierba%20mortal%20y%20otros%20relatos_agatha.png',tituloUno:'La hierba mortal y otros relatos — Agatha Christie',libroDos:'assets/img/portadas%20maupassant/suicidas_guy.png',tituloDos:'Suicidas — Guy de Maupassant',categoria:'Diseño editorial · Diseño de portadas',desc:'Diseño de una colección especial para The Folio Society que reúne relatos representativos de Agatha Christie y Guy de Maupassant. Cada edición desarrolla una identidad visual propia, inspirada en la narrativa de los autores, mediante composiciones tipográficas, recursos simbólicos y una estética editorial que reinterpreta sus obras.'},
+        {titulo:'Typodinamia: Licko & de Groot',img:'assets/img/typodinamia/typodinamia%20inside.png',gif:'assets/img/typodinamia/typodinamia_hello.gif?v=5',galeria:'assets/img/typodinamia/sec2_typodinamia.png',secundaria:'assets/img/typodinamia/scroll_sec.png',desc:'Typodinamia es una propuesta de identidad visual para una exposición que explora los enfoques tipográficos de Zuzana Licko y Lucas de Groot. A través de una identidad dinámica, construida a partir de formas geométricas, contrastes cromáticos y exploración tipográfica, el proyecto busca representar el diálogo entre la experimentación y la funcionalidad. El sistema se extiende a distintas aplicaciones gráficas, desde carteles y señalética hasta piezas editoriales y promocionales, manteniendo una identidad coherente y adaptable.',tipo:'Identidad visual y sistema de comunicación para una exposición tipográfica.',categoria:'Branding · Identidad visual · Diseño editorial · Dirección de arte.',contribucion:'100% — Proyecto individual.',alcance:'Conceptualización, diseño de identidad visual, diseño de logotipo, selección tipográfica y cromática, desarrollo de manual de identidad, sistema gráfico, diseño editorial y aplicaciones de marca en medios impresos, digitales y promocionales.',numero:'02'}
+      ]
+    },
+    'ux':{
+      titulo:'UX / UI',
+      proyectos:[
+        {id:'singapore-digital',titulo:'Singapore Airlines:',subtitulo:'Digital Experience',fichaSingapore:true,tipoSingapore:'digital',portadaTarjeta:'assets/img/portada_singapore_ux.png',video:'assets/mp4/animacion/prototype_singapore.mov',ocultarVideoTarjeta:true,galeriaSingapore:['assets/img/aerolinea/app_1.png','assets/img/aerolinea/app_2.png'],relacionado:'singapore-branding',textoRelacionado:'Visitar la identidad',desc:'Propuesta de aplicación digital para Singapore Airlines, enfocada en facilitar la experiencia del viajero mediante una interfaz intuitiva y una navegación clara, alineada con la identidad visual de la aerolínea.'},
+        {id:'ecoalerta-ux',titulo:'Eco Alerta:',subtitulo:'Pequeñas acciones, gran impacto.',img:'assets/img/ecoalerta/mockup.png',portadaTarjeta:'assets/img/ecoalerta/mockup.png',logoEcoalerta:'assets/img/ecoalerta/logo_ecoalerta.png',personajeEcoalerta:'assets/img/ecoalerta/personaje.png',galeriaEcoalerta:['assets/img/ecoalerta/pantallas_1.png','assets/img/ecoalerta/pantallas_2.png'],ecoalertaFicha:true,desc:'Diseño UX/UI de una aplicación móvil que busca fomentar hábitos sostenibles mediante alertas, recordatorios y herramientas educativas para crear conciencia sobre el impacto ambiental de las acciones cotidianas. La propuesta integra investigación de usuario, definición del problema, identidad visual y prototipado de una experiencia digital enfocada en el consumo responsable de agua y energía.',colaboracion:'Proyecto colaborativo con Daniela Roo y Sofía Ramos.'}
+      ]
+    },
+    'animacion':{
+      titulo:'Motion graphics',
+      proyectos:[
+        {titulo:'Coraline: Entre mundos',subtitulo:'Animación de créditos cinematográficos',portadaTarjeta:'assets/img/iconos/coraline_cover.png',video:'assets/mp4/animacion/coraline.mp4',videoDescArriba:true,ocultarVideoTarjeta:true,tituloUnaLinea:true,creditoSoftware:'After Effects',logoSoftware:'assets/img/iconos/after-effects.png',desc:'Secuencia de créditos animados inspirada en el universo visual de Coraline, que combina motion graphics, composición y transiciones dinámicas para recrear su atmósfera fantástica e inquietante. A través del movimiento de personajes, objetos y escenarios, la pieza explora el contraste entre la magia y la oscuridad de este mundo.'},
+        {titulo:'Find Your Match',subtitulo:'Campaña audiovisual',fichaTitulo:'Find Your Match',fichaMarca:'Campaña audiovisual',creditoSoftware:'After Effects',logoSoftware:'assets/img/iconos/after-effects.png',img:'assets/img/fenty/cover.jpg',video:'assets/img/fenty/fenty.mp4',videoInline:true,playbackRate:1.25,motionFicha:true,secuenciaMotion:['assets/img/fenty/fenty_1.gif','assets/img/fenty/fenty_2.gif'],desc:'Desarrollo de un anuncio publicitario animado de 15 segundos para TikTok, enfocado en promocionar la línea Match Stix de Fenty Beauty. Mediante una estética cálida y sofisticada, se integran modelado de producto, iluminación, compositing y transiciones dinámicas para destacar sus acabados, diversidad de tonos y una promoción especial.'},
+        {titulo:'Cosmic Muse',subtitulo:'Personaje 3D para r.e.m. beauty',personajeFicha:true,img:'assets/img/personaje/personaje_cover.png',creditoSoftware:'Autodesk Maya',logoSoftware:'assets/img/iconos/maya.png',desc:'Una viajera cósmica que lleva la belleza a otra dimensión. Un proyecto de modelado 3D que combina estética sci-fi, materiales metálicos e iluminación cinematográfica para dar vida a un personaje inspirado en el universo futurista de r.e.m. beauty.',galeriaPersonaje:['assets/img/personaje/personaje_horizontal_1_0003.png','assets/img/personaje/personaje_vert_1_0001.png','assets/img/personaje/personaje_vert_1_0002.png','assets/img/personaje/Personaje_1_0006.png']},
+        {titulo:'Beauty Orbit Stand',subtitulo:'Diseño y modelado 3D de stand',standFicha:true,img:'assets/img/stand_Rem/RemBeauty_1_0001.png',creditoSoftware:'Autodesk Maya',logoSoftware:'assets/img/iconos/maya.png',descripcionStand:'Diseño y modelado 3D de un stand para r.e.m. beauty, inspirado en la estética futurista y espacial de la marca. La propuesta integra un cohete inspirado en uno de sus labiales como elemento central, junto con áreas de exhibición de productos, estaciones de maquillaje y un photobooth, creando una experiencia inmersiva que conecta la belleza con la exploración de otros universos.',galeriaStand:['assets/img/stand_Rem/RemBeauty_1_0006.png','assets/img/stand_Rem/RemBeauty_1_0008.png','assets/img/stand_Rem/RemBeauty_1_0009.png','assets/img/stand_Rem/RemBeauty_1_0018.png','assets/img/stand_Rem/RemBeauty_1_0019.png']}
+      ]
+    },
+    'branding':{
+      titulo:'Branding',
+      proyectos:[
+        {id:'singapore-branding',titulo:'Singapore Airlines',subtitulo:'Beyond the Journey',fichaSingapore:true,tipoSingapore:'branding',portadaTarjeta:'assets/img/aerolinea/cola_avion.png',galeriaSingapore:['assets/img/aerolinea/cola_avion.png','assets/img/aerolinea/vasos.png','assets/img/aerolinea/plato.png'],mascadaSingapore:'assets/img/aerolinea/mascada.png',tarjetasSingapore:'assets/img/aerolinea/tarjetas.png',totemSingapore:'assets/img/aerolinea/totem.png',relacionado:'singapore-digital',textoRelacionado:'Visitar la aplicación',desc:'Desarrollo de una estrategia de branding para Singapore Airlines, con un sistema gráfico adaptable a distintos puntos de contacto de la marca. La propuesta unifica identidad, funcionalidad y estética para enriquecer la experiencia del viajero a través de aplicaciones visuales coherentes y distintivas.'},
+        {titulo:'Caffungi:',subtitulo:'Café funcional de hongos',img:'assets/img/caffungi/cover.png',fotoCaffungi:'assets/img/caffungi/close_up.png',caffungiFicha:true,galeriaCaffungi:['assets/img/caffungi/empaque_front.png','assets/img/caffungi/empaque_back.png'],tipo:'Branding y diseño de empaque para café funcional.',categoria:'Identidad visual · Branding · Packaging · Diseño de producto.',contribucion:'100% — Proyecto individual (por confirmar).',alcance:'Investigación de mercado y consumidor, conceptualización de marca, diseño de logotipo, selección tipográfica y cromática, desarrollo de patrones gráficos y diseño de empaque para café soluble con hongos adaptógenos.',desc:'Caffungi es una propuesta de marca de café funcional que busca ofrecer una alternativa para quienes desean disfrutar el ritual del café con una fórmula enfocada en el bienestar. Su identidad combina referencias orgánicas, representadas por hongos y granos de café, con una estética sofisticada que transmite equilibrio, naturaleza y calma.'},
+        {titulo:'Quest Diagnostics',subtitulo:'Rediseño de identidad visual',img:'assets/img/quest/Copia%20de%20quest_cover.png',portadaTarjeta:'assets/img/quest/Copia%20de%20quest_cover.png',questFicha:true,logoQuest:'assets/img/quest/quest_logo.png',mockupsQuest:'assets/img/quest/quest_mockups.png',desc:'Propuesta de rediseño de identidad para Quest Diagnostics que busca modernizar la imagen de la marca y reforzar sus valores de precisión, innovación y confianza. El proyecto desarrolla un sistema visual basado en la reinterpretación minimalista de la “Q”, inspirada en una lupa como símbolo de observación y análisis detallado. La nueva paleta turquesa y azul, junto con recursos gráficos modulares, se aplica a diversos puntos de contacto, incluyendo papelería, comunicación digital, publicidad exterior, señalética y espacios físicos.'},
+        {titulo:'LUMA:',subtitulo:'Nutre tu luminosidad',img:'assets/img/luma/cover.jpg',imagenLuma:'assets/img/luma/product_luma.png',imagenCampaniaLuma:'assets/img/luma/blog_luma.png',video:'assets/img/luma/luma%20ad.mp4',ocultarVideoTarjeta:true,lumaFicha:true,tipo:'Desarrollo estratégico y visual de una marca de beauty shots funcionales.',categoria:'Branding · Estrategia de marca · Packaging · Dirección de arte · Publicidad.',contribucion:'100% — Proyecto individual (por confirmar).',alcance:'Construcción conceptual de marca, lanzamiento de Ruby Glow y campaña publicitaria multicanal.',desc:'Desarrollo estratégico y visual de una marca de beauty shots funcionales que integra skincare, nutrición y bienestar en un ritual cotidiano. La propuesta abarca la construcción conceptual de marca, el lanzamiento de Ruby Glow y una campaña publicitaria multicanal que conecta la luminosidad de la piel con el autocuidado desde el interior, a través de una estética premium, sensorial y contemporánea.'}
+      ]
+    }
+  };
+
+  function mostrarSubcategorias(categoria){
+    var data=proyectosData[categoria];
+    if(!data)return;
+    activarCarpeta('proyectos');
+    listaSubcategorias.classList.toggle('motion-graphics',categoria==='animacion');
+    tituloCategoria.textContent=data.titulo;
+    listaSubcategorias.innerHTML='';
+    data.proyectos.forEach(function(p){
+      var li=document.createElement('li');
+      li.className='subcategoria-item';
+      var media='';
+      var imagenTarjeta=p.portadaTarjeta||p.img;
+      if(imagenTarjeta){media+='<figure><img src="'+imagenTarjeta+'" alt="'+p.titulo+'" loading="lazy"></figure>';}
+      if(p.video&&!p.videoInline&&!p.ocultarVideoTarjeta){media+='<figure class="video-media"><video src="'+p.video+'" controls preload="metadata" playsinline aria-label="Video de '+p.titulo+'"></video></figure>';}
+      var fichaLista=!!(p.maupassant||p.motionFicha||p.standFicha||p.personajeFicha||p.fichaSingapore||p.ecoalertaFicha||p.questFicha||p.participacion||p.videoDescArriba||p.creditoSoftware||(p.tipo&&p.categoria&&p.contribucion&&p.alcance&&p.desc));
+      if(fichaLista){li.setAttribute('data-abre-ficha','true');li.setAttribute('tabindex','0');li.setAttribute('aria-label','Abrir ficha de '+p.titulo);}
+      li.innerHTML=media+'<div class="info"><h4>'+p.titulo+'</h4>'+(p.subtitulo?'<p class="subtitulo-proyecto">'+p.subtitulo+'</p>':'')+'</div><button class="abrir-proyecto" type="button"'+(fichaLista?'':' disabled')+'>'+(fichaLista?'Ver proyecto':'Ficha pendiente')+'</button>';
+      if(fichaLista){
+        li.addEventListener('click',function(e){if(e.target.closest('video,button,a'))return;mostrarFicha(p);});
+        li.addEventListener('keydown',function(e){if(e.target===li&&(e.key==='Enter'||e.key===' ')){e.preventDefault();mostrarFicha(p);}});
+        li.querySelector('.abrir-proyecto').addEventListener('click',function(e){e.stopPropagation();mostrarFicha(p);});
+      }
+      listaSubcategorias.appendChild(li);
+    });
+    vistaCategorias.hidden=true;
+    vistaSubcategorias.hidden=false;
+  }
+
+  function mostrarFicha(p){
+    if(fichaProyecto.hidden)bodyOverflowAnterior=document.body.style.overflow;
+    if(p.fichaSingapore){
+      var botonRelacionado='<a class="ficha-singapore-link" href="#" data-proyecto-relacionado="'+p.relacionado+'">'+p.textoRelacionado+'</a>';
+      var introSingapore='<div class="ficha-singapore-intro"><h2>'+p.titulo+'</h2><span class="ficha-singapore-subtitle">'+p.subtitulo+'</span><p>'+p.desc+'</p>'+botonRelacionado+'</div>';
+      if(p.tipoSingapore==='branding')introSingapore='<section class="ficha-singapore-branding-intro"><img class="ficha-singapore-totem" src="'+p.totemSingapore+'" alt="Totem de SilverKris Lounge con la identidad de Singapore Airlines" loading="lazy">'+introSingapore+'</section>';
+      var galeriaSingapore;
+      if(p.tipoSingapore==='branding'){
+        galeriaSingapore='<section class="ficha-singapore-gallery branding-galeria" aria-label="Aplicaciones visuales de '+p.titulo+'"><img class="avion" src="'+p.galeriaSingapore[0]+'" alt="Identidad Singapore Airlines aplicada en la cola del avión" loading="lazy"><div class="mascada-tarjetas"><figure class="mascada-crop"><img src="'+p.mascadaSingapore+'" alt="Detalle izquierdo de la mascada Singapore Airlines" loading="lazy"></figure><div class="tarjetas-doble" aria-label="Dos vistas de las tarjetas Singapore Airlines"><figure><img src="'+p.tarjetasSingapore+'" alt="Primera tarjeta Singapore Airlines" loading="lazy"></figure><figure><img src="'+p.tarjetasSingapore+'" alt="Segunda tarjeta Singapore Airlines" loading="lazy"></figure></div></div><img class="aplicacion" src="'+p.galeriaSingapore[1]+'" alt="Vasos con la identidad de Singapore Airlines" loading="lazy"><img class="aplicacion" src="'+p.galeriaSingapore[2]+'" alt="Plato de servicio a bordo de Singapore Airlines" loading="lazy"></section>';
+      }else{
+        galeriaSingapore='<section class="ficha-singapore-gallery promocionales-app" aria-label="Imágenes promocionales de la aplicación">'+p.galeriaSingapore.map(function(src,i){return '<img src="'+src+'" alt="'+p.titulo+' — imagen promocional '+(i+1)+'" loading="lazy">';}).join('')+'</section>';
+      }
+      var videoSingapore=p.tipoSingapore==='digital'?'<div class="ficha-singapore-video"><div class="ficha-singapore-phone"><video src="'+p.video+'" autoplay muted loop preload="auto" playsinline aria-label="Prototipo de la aplicación de Singapore Airlines"></video></div></div>':'';
+      var mediosSingapore=p.tipoSingapore==='digital'?'<section class="ficha-singapore-app">'+videoSingapore+introSingapore+'</section>'+galeriaSingapore:introSingapore+galeriaSingapore;
+      contenidoFicha.innerHTML='<main class="ficha-singapore">'+mediosSingapore+'</main>';
+      contenidoFicha.querySelector('[data-proyecto-relacionado]').addEventListener('click',function(e){
+        e.preventDefault();
+        var siguiente=buscarProyecto(p.relacionado);
+        if(siguiente){
+          var categoriaSiguiente=buscarCategoriaProyecto(siguiente);
+          if(categoriaSiguiente)mostrarSubcategorias(categoriaSiguiente);
+          mostrarFicha(siguiente);
+        }
+      });
+      vistaSubcategorias.hidden=true;
+      fichaProyecto.hidden=false;
+      document.body.style.overflow='hidden';
+      fichaProyecto.scrollTop=0;
+      iniciarVideosFicha();
+      fichaProyecto.querySelector('.boton-volver').focus();
+      return;
+    }
+    if(p.personajeFicha){
+      contenidoFicha.innerHTML='<main class="ficha-personaje"><section class="ficha-personaje-hero"><img class="ficha-personaje-cover" src="'+p.img+'" alt="Portada de '+p.titulo+'"><div class="ficha-personaje-copy"><h2>'+p.titulo+'</h2><span class="ficha-personaje-brand">'+p.subtitulo+'</span><p>'+p.desc+'</p><div class="ficha-software"><span>Creado con '+p.creditoSoftware+'</span><img src="'+p.logoSoftware+'" alt="Logo de '+p.creditoSoftware+'"></div></div></section><section class="ficha-personaje-gallery" aria-label="Galería de '+p.titulo+'">'+p.galeriaPersonaje.map(function(src,i){return '<img src="'+src+'" alt="'+p.titulo+' — imagen '+(i+1)+'" loading="lazy">';}).join('')+'</section></main>';
+      vistaSubcategorias.hidden=true;
+      fichaProyecto.hidden=false;
+      document.body.style.overflow='hidden';
+      fichaProyecto.scrollTop=0;
+      fichaProyecto.querySelector('.boton-volver').focus();
+      return;
+    }
+    if(p.caffungiFicha){
+      contenidoFicha.innerHTML='<main class="ficha-caffungi"><section class="ficha-caffungi-hero"><img src="'+p.fotoCaffungi+'" alt="Empaque Caffungi sostenido en manos"><div class="ficha-caffungi-copy"><img class="logo" src="assets/img/caffungi/logo_naiming.png" alt="Logotipo Caffungi"><p class="ficha-caffungi-description">'+p.desc+'</p></div></section><img class="ficha-caffungi-cover" src="'+p.img+'" alt="Empaque Caffungi acompañado de café y hongos"><section class="ficha-caffungi-gallery" aria-label="Vistas del empaque de Caffungi">'+p.galeriaCaffungi.map(function(src,i){var descripciones=['Frente del empaque Caffungi','Reverso del empaque Caffungi'];return '<img src="'+src+'" alt="'+descripciones[i]+'" loading="lazy">';}).join('')+'</section></main>';
+      vistaSubcategorias.hidden=true;
+      fichaProyecto.hidden=false;
+      document.body.style.overflow='hidden';
+      fichaProyecto.scrollTop=0;
+      fichaProyecto.querySelector('.boton-volver').focus();
+      return;
+    }
+    if(p.questFicha){
+      contenidoFicha.innerHTML='<main class="ficha-quest"><section class="ficha-quest-hero"><img class="ficha-quest-logos" src="'+p.logoQuest+'" alt="Versiones del logotipo y paleta cromática de Quest Diagnostics"><div class="ficha-quest-copy"><h2>'+p.titulo+'</h2><span class="subtitulo">'+p.subtitulo+'</span><p>'+p.desc+'</p></div></section><img class="ficha-quest-cover" src="'+p.img+'" alt="Aplicación de la identidad Quest Diagnostics en el exterior de un laboratorio" loading="lazy"><section class="ficha-quest-gallery" aria-label="Mockups de identidad Quest Diagnostics"><img src="'+p.mockupsQuest+'" alt="Galería de aplicaciones gráficas y mockups de Quest Diagnostics" loading="lazy"></section></main>';
+      vistaSubcategorias.hidden=true;
+      fichaProyecto.hidden=false;
+      document.body.style.overflow='hidden';
+      fichaProyecto.scrollTop=0;
+      fichaProyecto.querySelector('.boton-volver').focus();
+      return;
+    }
+    if(p.lumaFicha){
+      contenidoFicha.innerHTML='<main class="ficha-luma"><section class="ficha-luma-hero"><img src="'+p.imagenLuma+'" alt="Producto LUMA Ruby Glow y diseño de empaque"><div class="ficha-luma-copy"><h2>'+p.titulo+'</h2><span class="ficha-luma-subtitle">'+p.subtitulo+'</span><p>'+p.desc+'</p></div></section><div class="ficha-luma-campaign-frame"><img class="ficha-luma-campaign" src="'+p.imagenCampaniaLuma+'" alt="Campaña de LUMA en puntos de venta y publicidad exterior"></div><video class="ficha-luma-video" src="'+p.video+'" autoplay muted loop playsinline preload="auto" aria-label="Anuncio audiovisual de LUMA Ruby Glow"></video></main>';
+      vistaSubcategorias.hidden=true;
+      fichaProyecto.hidden=false;
+      document.body.style.overflow='hidden';
+      fichaProyecto.scrollTop=0;
+      iniciarVideosFicha();
+      fichaProyecto.querySelector('.boton-volver').focus();
+      return;
+    }
+    if(p.ecoalertaFicha){
+      contenidoFicha.innerHTML='<main class="ficha-ecoalerta"><section class="ficha-ecoalerta-hero"><div class="ficha-ecoalerta-personaje"><img src="'+p.personajeEcoalerta+'" alt="Personaje de Eco Alerta personalizable"></div><div class="ficha-ecoalerta-copy"><img class="logo" src="'+p.logoEcoalerta+'" alt="Logotipo Eco Alerta"><span class="subtitulo">'+p.subtitulo+'</span><p>'+p.desc+'</p><p class="colaboracion"><strong>'+p.colaboracion+'</strong></p></div></section><section class="ficha-ecoalerta-galeria" aria-label="Pantallas de la aplicación Eco Alerta">'+p.galeriaEcoalerta.map(function(src,i){return '<img src="'+src+'" alt="Eco Alerta — pantallas de aplicación '+(i+1)+'" loading="lazy">';}).join('')+'</section><div class="ficha-ecoalerta-mockup-frame"><img class="ficha-ecoalerta-mockup" src="'+p.img+'" alt="Montaje de varias pantallas de la aplicación Eco Alerta" loading="lazy"></div></main>';
+      vistaSubcategorias.hidden=true;
+      fichaProyecto.hidden=false;
+      document.body.style.overflow='hidden';
+      fichaProyecto.scrollTop=0;
+      fichaProyecto.querySelector('.boton-volver').focus();
+      return;
+    }
+    if(p.standFicha){
+      contenidoFicha.innerHTML='<main class="ficha-stand"><section class="ficha-stand-hero"><div class="ficha-stand-copy"><h2>'+p.titulo+'</h2><span class="ficha-stand-brand">'+p.subtitulo+'</span><p>'+p.descripcionStand+'</p><div class="ficha-software"><span>Creado con '+p.creditoSoftware+'</span><img src="'+p.logoSoftware+'" alt="Logo de '+p.creditoSoftware+'"></div></div></section><section class="ficha-stand-gallery" aria-label="Imágenes del stand de r.e.m. beauty"><img src="'+p.img+'" alt="Portada del diseño 3D del stand de r.e.m. beauty">'+p.galeriaStand.map(function(src,i){return '<img src="'+src+'" alt="Stand de r.e.m. beauty — imagen '+(i+2)+'" loading="lazy">';}).join('')+'</section></main>';
+      vistaSubcategorias.hidden=true;
+      fichaProyecto.hidden=false;
+      document.body.style.overflow='hidden';
+      fichaProyecto.scrollTop=0;
+      fichaProyecto.querySelector('.boton-volver').focus();
+      return;
+    }
+    if(p.maupassant){
+      contenidoFicha.innerHTML='<main class="ficha-maupassant"><section class="ficha-maupassant-hero"><img class="ficha-maupassant-cover" src="'+p.cover+'" alt="Portada de las ediciones especiales de The Folio Society"><div class="ficha-maupassant-intro"><h2 class="ficha-titulo">'+p.fichaTitulo+'</h2><div class="ficha-resumen"><p><strong>Categoría:</strong> '+p.categoria+'</p><p>'+p.desc+'</p></div></div></section><section class="ficha-maupassant-libro libro-uno"><img src="'+p.libroUno+'" alt="Edición de '+p.tituloUno+'"></section><section class="ficha-maupassant-libro libro-dos"><img src="'+p.libroDos+'" alt="Edición de '+p.tituloDos+'"></section></main>';
+      vistaSubcategorias.hidden=true;
+      fichaProyecto.hidden=false;
+      document.body.style.overflow='hidden';
+      fichaProyecto.scrollTop=0;
+      fichaProyecto.querySelector('.boton-volver').focus();
+      return;
+    }
+    var resumen=(p.desc?'<p>'+p.desc+'</p>':'')+(p.participacion?'<p><strong>Participación:</strong> '+p.participacion+'</p>':'');
+    var visualPrincipal=p.gif||p.img;
+    var visualFicha=p.videoInline?'':(visualPrincipal?'<img src="'+visualPrincipal+'" alt="Visual principal de '+p.titulo+'">':'');
+    var videoPrincipal=p.videoInline&&p.video?'<video class="ficha-video-hero" data-playback-rate="'+(p.playbackRate||1)+'" src="'+p.video+'" autoplay muted loop preload="auto" playsinline aria-label="Video de '+p.titulo+'"></video>':'';
+    var tituloFicha=p.fichaTitulo||(p.tituloUnaLinea?p.titulo:(p.titulo==='Hollywood Offscreen'?'Hollywood<br>Offscreen':p.titulo.replace(': ',':<br>')));
+    if(p.videoInline)visualFicha=videoPrincipal;
+    var hero='<section class="ficha-cabecera'+(p.videoInline?' con-video':'')+(p.motionFicha?' social-media-hero':'')+(p.videoDescArriba?' descripcion-arriba':'')+(p.portadaDescripcion?' portada-descripcion':'')+'">'+visualFicha+'<div><h2 class="ficha-titulo'+(p.tituloUnaLinea?' titulo-una-linea':'')+'">'+tituloFicha+'</h2>'+(p.subtitulo?'<span class="ficha-marca">'+p.subtitulo+'</span>':(p.fichaMarca?'<span class="ficha-marca">'+p.fichaMarca+'</span>':''))+'<div class="ficha-resumen">'+resumen+'</div>'+(p.creditoSoftware?'<div class="ficha-software"><span>Creado con '+p.creditoSoftware+'</span>'+(p.logoSoftware?'<img src="'+p.logoSoftware+'" alt="Logo de '+p.creditoSoftware+'">':'')+'</div>':'')+'</div></section>';
+    var secuencia=p.secuencia?'<section class="ficha-secuencia" aria-label="Páginas del fanzine">'+p.secuencia.map(function(archivo,i){var portada=(archivo==='portada_ho.png'||archivo==='contraportada_ho.png');return '<figure'+(portada?' class="pagina-portada"':'')+'><img src="assets/img/hollywood/fanzine_after/'+archivo+'" alt="'+p.titulo+' — '+(portada?(archivo==='portada_ho.png'?'Portada':'Contraportada'):'pliego '+(i-1))+'" loading="lazy"></figure>';}).join('')+'</section>':'';
+    var secuenciaMotion=p.secuenciaMotion?'<section class="ficha-motion-secuencia" aria-label="Secuencia del proyecto">'+p.secuenciaMotion.map(function(src,i){return '<img src="'+src+'" alt="'+p.titulo+' — pieza '+(i+1)+'" loading="lazy">';}).join('')+'</section>':'';
+    contenidoFicha.innerHTML=hero+(p.video&&!p.videoInline?'<figure class="ficha-video'+(p.videoDescArriba?' video-grande':'')+'"><video src="'+p.video+'" autoplay muted loop preload="auto" playsinline aria-label="Video de '+p.titulo+'"></video></figure>':'')+secuencia+secuenciaMotion+(p.secundaria?'<img class="ficha-secundaria" src="'+p.secundaria+'" alt="Vistas de la exposición de '+p.titulo+'">':'')+(p.galeria?'<div class="ficha-galeria" aria-label="Aplicaciones desplazables del proyecto"><img src="'+p.galeria+'" alt="Aplicaciones promocionales del proyecto '+p.titulo+'"></div>':'');
+    vistaSubcategorias.hidden=true;
+    fichaProyecto.hidden=false;
+    document.body.style.overflow='hidden';
+    fichaProyecto.scrollTop=0;
+    iniciarVideosFicha();
+    fichaProyecto.querySelector('.boton-volver').focus();
+  }
+
+  function buscarProyecto(id){
+    var categorias=Object.keys(proyectosData);
+    for(var i=0;i<categorias.length;i++){
+      var encontrado=proyectosData[categorias[i]].proyectos.find(function(proyecto){return proyecto.id===id;});
+      if(encontrado)return encontrado;
+    }
+    return null;
+  }
+
+  function buscarCategoriaProyecto(proyecto){
+    var categorias=Object.keys(proyectosData);
+    for(var i=0;i<categorias.length;i++){
+      if(proyectosData[categorias[i]].proyectos.indexOf(proyecto)!==-1)return categorias[i];
+    }
+    return null;
+  }
+
+  function iniciarVideosFicha(){
+    fichaProyecto.querySelectorAll('.ficha-contenido video').forEach(function(video){
+      video.muted=true;
+      video.loop=true;
+      var playbackRate=Number(video.dataset.playbackRate);
+      if(Number.isFinite(playbackRate)&&playbackRate>0)video.playbackRate=playbackRate;
+      var intento=video.play();
+      if(intento&&typeof intento.catch==='function')intento.catch(function(){});
+    });
+  }
+
+  function volverACategorias(){
+    fichaProyecto.querySelectorAll('video').forEach(function(video){video.pause();});
+    fichaProyecto.hidden=true;
+    document.body.style.overflow=bodyOverflowAnterior;
+    vistaCategorias.hidden=false;
+    vistaSubcategorias.hidden=true;
+    activarCarpeta('proyectos');
+    stage.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+    var pestañaProyectos=document.getElementById('tab-proyectos');
+    if(pestañaProyectos)requestAnimationFrame(function(){pestañaProyectos.focus({preventScroll:true});});
+  }
+
+  document.querySelectorAll('.categoria-item').forEach(function(item){
+    item.addEventListener('click',function(){
+      mostrarSubcategorias(item.getAttribute('data-categoria'));
+    });
+    item.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){
+        e.preventDefault();
+        mostrarSubcategorias(item.getAttribute('data-categoria'));
+      }
+    });
+  });
+
+  botonVolver.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();volverACategorias();});
+  botonVolverFicha.addEventListener('click',volverACategorias);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!fichaProyecto.hidden){volverACategorias();}});
+
+  nav.querySelector('[data-nav-inicio]').addEventListener('click',function(e){
+    e.preventDefault();
+    fichaProyecto.querySelectorAll('video').forEach(function(video){video.pause();});
+    fichaProyecto.hidden=true;
+    document.body.style.overflow=bodyOverflowAnterior;
+    vistaCategorias.hidden=false;
+    vistaSubcategorias.hidden=true;
+    contenidoFicha.innerHTML='';
+    activarCarpeta('sobre-mi');
+    window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+  });
+
+  document.getElementById('anio').textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>

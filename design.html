@@ -1,314 +1,228 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ingrid López — Portafolio</title>
-<meta name="description" content="Portafolio interactivo: tres carpetas originales superpuestas, una por sección.">
-<style>
-:root{
-  --colors-primary:#4C050C;--colors-background:#FBFCF0;--colors-secondary:#94B1C8;--colors-ink:#1A0905;
-  --spacing-xs:4px;--spacing-sm:8px;--spacing-md:16px;--spacing-lg:24px;--spacing-xl:32px;--spacing-xxl:48px;--spacing-section:96px;
-  --rounded-none:0px;--rounded-folder-top:16px;--rounded-card:4px;--rounded-pill:999px;--rounded-circle:50%;
-  --font-display:"Instrument Serif",Georgia,serif;
-  --font-accent:"New Kansas ExtraSwash","Instrument Serif",Georgia,serif;
-  --font-body:"Area",system-ui,-apple-system,"Segoe UI",sans-serif;
-}
-@font-face{font-family:"Instrument Serif";src:url("assets/fonts/Instrument_Serif/InstrumentSerif-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"New Kansas ExtraSwash";src:url("assets/fonts/new-kansas-font/New Kansas Regular.otf") format("opentype");font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:"Area";src:url("assets/fonts/Area Font/AreaNormalTrial-Regular-BF65ea75c666f34.otf") format("opentype");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"Area";src:url("assets/fonts/Area Font/AreaNormalTrial-Medium-BF65ea75c66b01c.otf") format("opentype");font-weight:500;font-style:normal;font-display:swap}
-*{box-sizing:border-box}
-img{max-width:100%;height:auto}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
-body{margin:0;background:var(--colors-background);color:var(--colors-ink);font-family:var(--font-body);font-size:16px;line-height:1.6}
-.skip-link{position:absolute;left:8px;top:-60px;background:var(--colors-primary);color:var(--colors-background);padding:12px 20px;border-radius:var(--rounded-pill);z-index:100}
-.skip-link:focus{top:8px}
-:focus-visible{outline:3px solid var(--colors-primary);outline-offset:3px;border-radius:2px}
-.site-nav{background:var(--colors-background);border-bottom:1px solid var(--colors-primary);position:sticky;top:0;z-index:50}
-.site-nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:var(--spacing-md);max-width:1120px;margin:0 auto;padding:var(--spacing-md) var(--spacing-lg)}
-.brand img{height:32px;width:auto;display:block}
-.nav-links{display:flex;gap:8px;list-style:none;margin:0;padding:0}
-.nav-links a{color:var(--colors-primary);text-decoration:none;border:1px solid var(--colors-primary);border-radius:var(--rounded-pill);padding:8px 18px;min-height:44px;display:inline-flex;align-items:center;font-size:13px}
-.nav-links a:hover{background:var(--colors-primary);color:var(--colors-background)}
-.nav-links a[aria-current="page"]{background:var(--colors-primary);color:var(--colors-background)}
-.wrap{max-width:1120px;margin:0 auto;padding:0 var(--spacing-lg)}
-.hero{background:var(--colors-primary);color:var(--colors-background);padding:var(--spacing-xxl) 0}
-.hero h1{font-family:var(--font-display);font-weight:400;font-size:clamp(36px,6vw,56px);line-height:1.05;margin:12px 0 8px}
-.hero p{max-width:56ch}
-.hero .logo-hero{height:clamp(36px,5vw,52px);width:auto}
-.stage{padding:var(--spacing-xl) 0 var(--spacing-xxl)}
-.pview[hidden]{display:none}
-.folders-live{background:var(--colors-primary);border-radius:var(--rounded-folder-top);padding:clamp(12px,3vw,32px);margin-top:var(--spacing-md)}
-.folders-live :focus-visible{outline-color:var(--colors-background)}
-.folders-stack{display:grid;max-width:100%;margin:0 auto;padding-top:112px;container-type:inline-size}
-.ffolder{grid-area:1/1;position:relative;border:0;background:none;padding:0;cursor:pointer;transition:transform .25s ease;min-height:44px}
-.ffolder img{width:100%;height:auto;display:block}
-.folder-text{position:absolute;left:13%;top:30%;width:33%;text-align:left;color:var(--colors-background);pointer-events:none}
-.folder-text h3{font-family:var(--font-display);font-weight:400;font-size:clamp(20px,4.6cqw,54px);line-height:1.08;margin:0 0 .5em;color:var(--colors-background)}
-.folder-text p{font-family:var(--font-body);font-size:clamp(11px,1.9cqw,20px);line-height:1.45;margin:0 0 .6em}
-.rank-0{transform:translateY(0);z-index:5}
-.rank-1{transform:translateY(-56px);z-index:4}
-.rank-2{transform:translateY(-112px);z-index:3}
-.pview[hidden]{display:none}
-.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.hero-title{font-family:var(--font-display);font-weight:400;font-size:clamp(52px,11vw,104px);line-height:1;letter-spacing:.02em;margin:0 0 12px}
-.view-card.on-wine{background:var(--colors-primary);border-color:var(--colors-primary);color:var(--colors-background)}
-.view-card.on-wine h2,.view-card.on-wine h3,.view-card.on-wine .kicker{color:var(--colors-background)}
-.view-card.on-blue{background:var(--colors-secondary)}
-.stage{scroll-margin-top:70px}
-.cover{background:var(--colors-primary);color:var(--colors-background);border-radius:var(--rounded-folder-top);padding:var(--spacing-lg);text-align:center}
-.cover .hero{background:none;padding:0}
-.cover .status{color:var(--colors-background)}
-.cover .folders-live{background:none;padding:0;margin-top:var(--spacing-md)}
-.canvas{position:relative;container-type:inline-size}
-.canvas>img{width:100%;height:auto;display:block}
-.canvas-text{position:absolute;left:7%;top:12%;width:44%;text-align:left}
-.canvas-text h2{font-family:var(--font-display);font-weight:400;font-size:clamp(22px,4.6cqw,52px);line-height:1.08;margin:0 0 .4em}
-.canvas-text p,.canvas-text li{font-family:var(--font-body);font-size:clamp(11px,1.8cqw,18px);line-height:1.45}
-@media(max-width:700px){.canvas-text{position:static;width:auto;padding:20px 4px 0}}
-@media(hover:hover){.ffolder:hover{scale:1.02}}
-.folders-live.jolt .ffolder{translate:-8px 0}
-.folders-live.jolt .ffolder:nth-child(even){translate:8px 0}
-.view-card{border:1px solid var(--colors-primary);border-radius:var(--rounded-card);background:var(--colors-background);padding:var(--spacing-lg);margin-top:var(--spacing-md)}
-.view-card h2{font-family:var(--font-display);font-weight:400;font-size:32px;color:var(--colors-primary);margin:0 0 8px}
-.view-card h3{font-family:var(--font-display);font-weight:400;color:var(--colors-primary);margin:24px 0 4px;font-size:20px}
-.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--colors-primary);margin:0}
-section.block{padding:var(--spacing-xxl) 0;border-bottom:1px solid var(--colors-primary)}
-section.block h2{font-family:var(--font-display);font-weight:400;font-size:32px;color:var(--colors-primary);margin:0 0 8px}
-.lede{max-width:68ch}
-.token-tag{font-family:ui-monospace,Menlo,monospace;font-size:12px;background:rgba(76,5,12,.07);border:1px solid var(--colors-primary);border-radius:var(--rounded-pill);padding:2px 10px;white-space:nowrap}
-.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--spacing-md);margin-top:var(--spacing-md)}
-.swatch{border:1px solid var(--colors-primary);border-radius:var(--rounded-card);overflow:hidden;background:var(--colors-background)}
-.swatch .chip{height:96px}
-.swatch .info{padding:var(--spacing-md);font-size:13px}
-.copy-btn{background:var(--colors-background);color:var(--colors-primary);border:1px solid var(--colors-primary);border-radius:var(--rounded-pill);padding:8px 14px;min-height:44px;cursor:pointer;font:inherit;font-size:13px;margin-top:8px}
-.copy-btn:hover{background:var(--colors-primary);color:var(--colors-background)}
-.type-sample{border:1px solid var(--colors-primary);border-radius:var(--rounded-card);padding:var(--spacing-lg);margin-top:var(--spacing-md);background:var(--colors-background)}
-.type-display{font-family:var(--font-display);font-size:clamp(40px,6vw,64px);line-height:1.05;color:var(--colors-primary);margin:0}
-.type-accent{font-family:var(--font-accent);font-size:24px;color:var(--colors-primary);margin:0}
-.logo-box{border:1px solid var(--colors-primary);border-radius:var(--rounded-card);padding:var(--spacing-lg);text-align:center;margin-top:var(--spacing-md)}
-.logo-box img{height:44px;max-width:100%}
-.logo-box.on-dark{background:var(--colors-primary)}
-.bar-row{display:grid;grid-template-columns:110px 1fr 90px;gap:12px;align-items:center;font-size:13px;margin-top:8px}
-.bar{height:18px;background:var(--colors-primary)}
-.radii{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:var(--spacing-md);margin-top:var(--spacing-md)}
-.radius-card{border:1px solid var(--colors-primary);border-radius:var(--rounded-card);padding:var(--spacing-md);text-align:center;font-size:13px}
-.demo{width:72px;height:72px;background:var(--colors-primary);margin:0 auto 8px}
-.demo.folder{border-radius:16px 16px 4px 4px}
-.demo.pill{width:120px;height:48px;border-radius:999px}
-.demo.circle{border-radius:50%}
-.btn{display:inline-flex;align-items:center;min-height:44px;padding:8px 24px;border-radius:999px;font:inherit;cursor:pointer;text-decoration:none;border:1px solid var(--colors-primary)}
-.btn-primary{background:var(--colors-primary);color:var(--colors-background)}
-.btn-back{background:var(--colors-background);color:var(--colors-primary)}
-.btn-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
-.sample-link{color:var(--colors-primary);padding:12px 4px;display:inline-block}
-.cats{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:16px 0 0;padding:0}
-.cats li{border:1px solid var(--colors-primary);border-radius:var(--rounded-pill);padding:8px 16px;font-size:13px;color:var(--colors-primary)}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--spacing-md);margin-top:var(--spacing-md)}
-.project-card{background:var(--colors-background);border:1px solid var(--colors-primary);border-radius:4px;overflow:hidden}
-.project-card .media{position:relative;aspect-ratio:4/3;background:#d8d2c2;overflow:hidden}
-.project-card img{width:100%;height:100%;object-fit:cover;display:block}
-.project-card .overlay{position:absolute;inset:0;background:rgba(76,5,12,.88);color:var(--colors-background);padding:var(--spacing-md);display:flex;flex-direction:column;justify-content:end;gap:4px;opacity:0;transition:opacity .2s ease}
-.project-card:hover .overlay,.project-card:focus-within .overlay,.project-card.reveal .overlay{opacity:1}
-.project-card h3{font-family:var(--font-display);font-weight:400;margin:0}
-.card-foot{padding:var(--spacing-md);display:flex;justify-content:space-between;align-items:center;gap:8px}
-.mini-btn{background:none;border:1px solid var(--colors-primary);color:var(--colors-primary);border-radius:999px;min-height:44px;padding:8px 16px;cursor:pointer;font-size:13px}
-.stickers{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--spacing-md);margin-top:var(--spacing-md)}
-.sticker{border:1px solid var(--colors-primary);border-radius:4px;padding:var(--spacing-md);text-align:center;font-size:13px}
-.sticker img{max-width:100%;height:120px;object-fit:cover;border-radius:4px}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:var(--spacing-md);margin-top:var(--spacing-md)}
-@media(max-width:700px){.two-col{grid-template-columns:1fr}.bar-row{grid-template-columns:80px 1fr 70px}.folders-stack{padding-top:80px}.rank-1{transform:translateY(-40px)}.rank-2{transform:translateY(-80px)}}
-.do,.dont{border-radius:4px;padding:var(--spacing-lg)}
-.do{border:1px solid var(--colors-primary)}
-.dont{background:var(--colors-primary);color:var(--colors-background)}
-footer{padding:var(--spacing-xl) 0;font-size:13px}
-.status{min-height:22px;font-size:13px}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sistema de diseño — Ingrid López</title>
+  <meta name="description" content="Sistema de diseño del portafolio de Ingrid López, basado en los componentes y recursos que aparecen en index.html.">
+  <style>
+    :root{
+      --color-primary:#79121E;
+      --color-background:#FBFCF0;
+      --color-secondary:#94B1C8;
+      --color-ink:#1A0905;
+      --color-primary-on:#FBFCF0;
+      --color-stage:#780E17;
+      --font-display:"Instrument Serif",Georgia,serif;
+      --font-heading:"Instrument Serif",Georgia,serif;
+      --font-accent:"New Kansas",Georgia,serif;
+      --font-body:"Albert Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+      --font-caption:"Albert Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+      --space-xs:4px;--space-sm:8px;--space-md:16px;--space-lg:24px;--space-xl:32px;--space-xxl:48px;--space-xxxl:64px;--space-section:96px;
+      --radius-card:4px;--radius-pill:999px;
+      --shadow-suave:0 2px 8px rgba(76,5,12,.08);--shadow-media:0 4px 16px rgba(76,5,12,.12);--shadow-fuerte:0 8px 32px rgba(76,5,12,.16);
+    }
+    @font-face{font-family:"Instrument Serif";src:url("assets/fonts/Instrument_Serif/InstrumentSerif-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+    @font-face{font-family:"Instrument Serif";src:url("assets/fonts/Instrument_Serif/InstrumentSerif-Italic.ttf") format("truetype");font-weight:400;font-style:italic;font-display:swap}
+    @font-face{font-family:"New Kansas";src:url("assets/fonts/new-kansas-font/New Kansas Regular.otf") format("opentype");font-weight:400;font-display:swap}
+    @font-face{font-family:"Albert Sans";src:url("assets/fonts/Albert_Sans/AlbertSans-VariableFont_wght.ttf") format("truetype");font-weight:100 900;font-display:swap}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--color-stage);color:var(--color-ink);font:16px/1.6 var(--font-body)}
+    img{display:block;max-width:100%}
+    a{color:inherit}
+    .wrap{width:min(1120px,calc(100% - 48px));margin-inline:auto}
+    .site-header{position:sticky;top:0;z-index:10;background:var(--color-background);border-bottom:1px solid var(--color-primary)}
+    .header-inner{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand img{width:auto;height:32px}
+    .nav ul{display:flex;gap:8px;list-style:none;margin:0;padding:0}
+    .nav a{min-height:44px;padding:8px 18px;display:inline-flex;align-items:center;border:1px solid var(--color-primary);border-radius:var(--radius-pill);color:var(--color-primary);text-decoration:none;font-size:13px;line-height:1}
+    .nav a[aria-current="page"]{background:var(--color-primary);color:var(--color-primary-on)}
+    main{padding:64px 0 96px}
+    .intro{color:var(--color-background);padding:28px 0 68px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(250px,.8fr);align-items:center;gap:48px}
+    .eyebrow{margin:0 0 10px;font-size:13px;letter-spacing:.13em;text-transform:uppercase}
+    h1,h2,h3,p{margin-top:0}
+    h1{font:400 clamp(48px,7vw,76px)/.98 var(--font-display);margin:0 0 18px}
+    h2{font:400 clamp(34px,4.8vw,52px)/1.05 var(--font-display);margin:0 0 10px}
+    h3{font:400 28px/1.1 var(--font-heading);margin:0 0 12px;color:var(--color-primary)}
+    .intro p:last-child{max-width:620px;margin:0;color:rgba(251,252,240,.86);font-size:18px}
+    .intro-art{width:min(100%,390px);justify-self:center;filter:drop-shadow(0 16px 24px rgba(26,9,5,.18));transform:rotate(3deg)}
+    .intro-copy{position:relative}.intro-copy:after{content:"";display:block;width:76px;height:2px;margin-top:28px;background:#f8c4d7}
+    .section{margin:0 0 64px}
+    .section-heading{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px;color:var(--color-background)}
+    .section-heading p{margin:0;max-width:440px;color:rgba(251,252,240,.8);font-size:14px}
+    .panel{background:var(--color-background);border-radius:4px;padding:clamp(20px,4vw,40px);box-shadow:var(--shadow-suave)}
+    .folder-panel{padding:clamp(26px,6vw,64px) 0;overflow:hidden;background:var(--color-background)}
+    .tab-indicators{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:min(78%,850px);margin:0 auto;align-items:end}
+    .tab-crop{height:clamp(34px,5.1vw,60px);background-repeat:no-repeat;background-size:385% auto}
+    .tab-about{background-image:url("assets/img/inicio/carpeta_sobremi.png");background-position:19% 0}
+    .tab-projects{background-image:url("assets/img/inicio/proyectos.png");background-position:53% 0}
+    .tab-contact{background-image:url("assets/img/inicio/contacto_carpeta.png");background-position:86% 0}
+    .stage-caption{display:flex;justify-content:center;gap:12px;padding:18px 20px 0;color:var(--color-primary);font-size:13px;text-align:center}
+    .folder-details{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+    .folder-detail{padding:16px;border-top:1px solid rgba(121,18,30,.24);color:var(--color-ink)}
+    .folder-detail h3{font-size:23px;margin:0 0 5px}
+    .folder-detail p{margin:0;font-size:13px;color:#4d3832}
+    .palette{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+    .swatch{overflow:hidden;border:1px solid rgba(26,9,5,.12);border-radius:4px;background:#fff}
+    .swatch-color{height:98px}
+    .swatch p{font-size:13px;padding:11px 12px;margin:0;line-height:1.45}
+    .swatch strong{display:block;color:var(--color-primary);font-weight:600}
+    .type-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .type-card{min-height:150px;border:1px solid rgba(121,18,30,.2);border-radius:4px;padding:20px;background:#fffefa}
+    .type-card small,.label{display:block;color:#6f5650;font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+    .type-sample-display{font:400 42px/.98 var(--font-display);color:var(--color-primary)}
+    .type-sample-heading{font:400 28px/1.1 var(--font-heading);color:var(--color-primary)}
+    .type-sample-accent{font:italic 26px/1.1 var(--font-accent);color:var(--color-primary)}
+    .type-sample-body{font:400 16px/1.5 var(--font-body);color:var(--color-ink)}
+    .type-card p{margin:0}
+    .scale{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-top:18px;color:var(--color-primary)}
+    .scale span:nth-child(1){font-size:13px}.scale span:nth-child(2){font-size:16px}.scale span:nth-child(3){font-size:20px}.scale span:nth-child(4){font:32px var(--font-display)}
+    .project-preview{position:relative;isolation:isolate;overflow:hidden;aspect-ratio:1.46;background:var(--color-background)}
+    .project-folder-art{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;z-index:-1}
+    .project-shell{height:100%;padding:10% 9% 4%;text-align:center;overflow:hidden}
+    .project-shell h3{font-size:clamp(24px,3vw,36px);margin-bottom:8px}
+    .project-shell>p{margin:0 auto 16px;max-width:680px;font-size:14px}
+    .category-grid{display:grid;grid-auto-flow:column;grid-template-columns:none;grid-template-rows:1fr;grid-auto-columns:calc((100% - 16px)/2);gap:16px;text-align:left;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:thin;padding-bottom:5px}
+    .category{position:relative;aspect-ratio:1;overflow:hidden;border-radius:4px;background:#000;color:#fff}
+    .category img{width:100%;height:100%;object-fit:cover}
+    .category-label{position:absolute;inset:auto 0 0;padding:32px 12px 12px;background:linear-gradient(transparent,rgba(76,5,12,.9));font:400 clamp(18px,2.4vw,25px)/1.1 var(--font-heading)}
+    .category{scroll-snap-align:start}
+    .project-card-sample{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center;margin-top:26px;padding:20px;border:1px solid var(--color-primary);border-radius:4px;background:var(--color-background)}
+    .project-card-sample img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:4px}
+    .project-card-sample h3{font-size:27px;margin-bottom:4px}
+    .project-card-sample .subtitle{font:italic 18px/1.2 var(--font-display);margin:0 0 8px}
+    .project-card-sample p{font-size:13px;margin:0 0 14px}
+    .sample-button{display:inline-flex;border:1px solid var(--color-primary);border-radius:var(--radius-pill);padding:8px 16px;color:var(--color-primary);font-size:14px}
+    .contact-sample{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
+    .contact-sample img{width:100%;height:auto;border-radius:4px}
+    .contact-note{padding:20px}
+    .contact-note h3{font:400 34px/1.08 var(--font-display);margin-bottom:12px}
+    .contact-note p{margin:0 0 14px}
+    .contact-destinations{margin:18px 0 0;padding:0;list-style:none;border-top:1px solid rgba(121,18,30,.2)}
+    .contact-destinations li{padding:9px 0;border-bottom:1px solid rgba(121,18,30,.2);font-size:13px}
+    .contact-destinations strong{display:inline-block;min-width:86px;color:var(--color-primary);font-weight:600}
+    .tokens{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .token-list{margin:0;padding:0;list-style:none}
+    .token-list li{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(121,18,30,.16);padding:8px 0;font-size:13px}
+    code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--color-primary)}
+    .token-note{font-size:13px;color:#57433e;margin:16px 0 0}
+    footer{padding:22px 0;color:rgba(251,252,240,.8);font-size:12px}
+    footer .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    footer img{height:28px;width:auto}
+    @media(max-width:700px){
+      .wrap{width:min(100% - 28px,1120px)}
+      .header-inner{min-height:60px}.brand img{height:26px}.nav ul{gap:5px}.nav a{font-size:10px;padding:7px 10px;min-height:38px}
+      main{padding-top:42px}.intro{padding-bottom:38px}.section{margin-bottom:46px}.section-heading{display:block}.section-heading p{margin-top:8px}
+      .intro{grid-template-columns:1fr;gap:14px;padding-top:8px}.intro-art{width:min(72%,300px);justify-self:end;margin-top:-4px}.intro-copy{z-index:1}.intro p:last-child{font-size:16px}
+      .tab-indicators{width:92%}.tab-crop{height:5vw;min-height:18px;max-height:34px}.stage-caption{font-size:11px;padding:14px 14px 0}.folder-details{grid-template-columns:1fr;gap:10px}.folder-detail{padding:10px 12px}
+      .palette{grid-template-columns:repeat(2,minmax(0,1fr))}.swatch-color{height:68px}.type-grid{grid-template-columns:1fr}.type-card{min-height:125px}
+      .project-preview{aspect-ratio:.95}.project-shell{padding:19% 8% 4%}.project-shell h3{font-size:26px}.project-shell>p{font-size:12px;margin-bottom:10px}.category-grid{gap:10px}.category-label{font-size:16px;padding:28px 8px 8px}
+      .project-card-sample{grid-template-columns:1fr;gap:14px;padding:14px}.contact-sample{grid-template-columns:1fr}.contact-note{padding:0}
+      .tokens{grid-template-columns:1fr}footer .footer-inner{align-items:flex-start}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+  </style>
 </head>
 <body>
-<a class="skip-link" href="#contenido">Saltar al contenido</a>
-<nav class="site-nav" aria-label="Principal"><div class="wrap">
-<a class="brand" href="#/inicio" aria-label="Inicio — Ingrid López"><img src="assets/img/logo/logo_red.png" alt="Ingrid López" width="1366" height="300"></a>
-<ul class="nav-links"><li><a href="#/inicio" data-nav="inicio">Inicio</a></li><li><a href="#/proyectos" data-nav="proyectos">Projects</a></li><li><a href="#/sobre-mi" data-nav="sobre-mi">About</a></li><li><a href="#/sistema" data-nav="sistema">Sistema</a></li></ul>
-</div></nav>
-<main id="contenido">
-<div class="wrap">
-<section class="stage" aria-label="Portafolio interactivo">
-<div class="pview" data-view="inicio">
-<div class="cover">
-<header class="hero">
-<h1 class="hero-title">PORTAFOLIO</h1>
-<img src="assets/img/logo/logo_beige.png" alt="Ingrid López" width="1366" height="300" style="height:clamp(36px,6vw,56px);width:auto">
-<p style="max-width:52ch;margin:12px auto 0">Hola, este es mi archivo creativo. Elige una carpeta para explorar cada sección.</p>
-</header>
-<div class="folders-live" id="folders-live">
-<div class="folders-stack" id="folders-stack">
-<button type="button" class="ffolder rank-2" data-k="contacto" aria-pressed="false" aria-label="Abrir carpeta Contacto"><img src="assets/img/folders/contacto.png" alt="" width="1933" height="1081"></button>
-<button type="button" class="ffolder rank-1" data-k="proyectos" aria-pressed="false" aria-label="Abrir carpeta Proyectos"><img src="assets/img/folders/proyectos.png" alt="" width="1933" height="1081"></button>
-<button type="button" class="ffolder rank-0 active" data-k="sobre-mi" aria-pressed="true" aria-label="Abrir carpeta Sobre mí"><img src="assets/img/folders/sobre_mi.png" alt="" width="1933" height="1081"><span class="folder-text" aria-hidden="true"><h3>Hola, yo soy Ingrid López</h3><p>Una diseñadora gráfica apasionada por transformar las ideas en conceptos visuales con intención.</p><p>Me inspiran especialmente el branding y el diseño editorial.</p></span></button>
-</div>
-</div>
-<p class="status" role="status" aria-live="polite" id="folder-status">Portada: las tres carpetas apiladas. Toca una para abrir su sección.</p>
-</div>
-</div>
-<div class="pview" data-view="sobre-mi" hidden>
-<div class="view-card on-wine" style="padding:0;overflow:hidden">
-<div class="canvas">
-<img src="assets/img/folders/sobre_mi.png" alt="Carpeta Sobre mí" width="1933" height="1081">
-<div class="canvas-text">
-<p class="kicker">Sobre mí</p>
-<h2 tabindex="-1" data-title>Hola, yo soy Ingrid López</h2>
-<p>Una diseñadora gráfica apasionada por transformar las ideas en conceptos visuales con intención.</p>
-<p>Me inspiran especialmente el <strong>branding y el diseño editorial</strong>, donde busco construir identidades y contar historias que conecten.</p>
-<p><strong>Formación:</strong> Licenciatura en Diseño Gráfico, Universidad La Salle · 2023–2027.</p>
-<p><strong>Experiencia:</strong> Servicio social en Empatheia · 2026.</p>
-<p><strong>Herramientas:</strong> Illustrator · Photoshop · InDesign · Figma · Procreate · Maya.</p>
-</div>
-</div>
-<div class="btn-row" style="padding:0 var(--spacing-lg) var(--spacing-lg)"><button type="button" class="btn btn-back" data-back>← Volver a la portada</button></div>
-</div>
-</div>
-<div class="pview" data-view="proyectos" hidden>
-<div class="view-card on-blue" style="padding:0;overflow:hidden">
-<div class="canvas">
-<img src="assets/img/folders/proyectos.png" alt="Carpeta Proyectos" width="1933" height="1081">
-<div class="canvas-text">
-<p class="kicker">Proyectos</p>
-<h2 tabindex="-1" data-title>Índice visual</h2>
-<p>La imagen presenta, la interacción revela el contexto.</p>
-<ul class="cats"><li>Branding</li><li>Editorial</li><li>Fotografía</li><li>Animación / 3D</li><li>Campañas</li><li>UX / UI</li></ul>
-</div>
-</div>
-<div class="cards">
-<article class="project-card"><div class="media"><img src="assets/img/fanzine/fanzine.png" alt="Proyecto editorial fanzine" loading="lazy"><div class="overlay"><h3>Fanzine</h3><p>Editorial · 2026</p></div></div><div class="card-foot"><span style="font-size:13px">Editorial</span><button class="mini-btn" aria-expanded="false">Ver info</button></div></article>
-<article class="project-card"><div class="media"><img src="assets/img/modelado /personaje_vert_1_0001.png" alt="Proyecto de personaje 3D" loading="lazy"><div class="overlay"><h3>Personaje 3D</h3><p>Experimentación visual</p></div></div><div class="card-foot"><span style="font-size:13px">3D</span><button class="mini-btn" aria-expanded="false">Ver info</button></div></article>
-<article class="project-card"><div class="media"><img src="assets/img/aerolinea/singapore-airlines.png" alt="Proyecto Singapore Airlines: estrategia de branding y aplicación móvil" loading="lazy"><div class="overlay"><h3>Singapore Airlines</h3><p>UX / UI · Branding</p></div></div><div class="card-foot"><span style="font-size:13px">UX / UI</span><button class="mini-btn" aria-expanded="false">Ver info</button></div></article>
-</div>
-<div class="btn-row"><button type="button" class="btn btn-back" data-back>← Volver a la portada</button></div>
-</div>
-</div>
-<div class="pview" data-view="contacto" hidden>
-<div class="view-card">
-<div class="canvas">
-<img src="assets/img/folders/contacto.png" alt="Carpeta Contacto" width="1933" height="1081">
-<div class="canvas-text">
-<p class="kicker">Contacto</p>
-<h2 tabindex="-1" data-title>Hablemos</h2>
-<p>Escríbeme para proyectos y colaboraciones.</p>
-<div class="btn-row"><a class="btn btn-primary" href="mailto:hola@ejemplo.com">Correo</a><a class="btn btn-back" href="https://www.linkedin.com/" rel="noopener">LinkedIn</a></div>
-</div>
-</div>
-<div class="btn-row"><button type="button" class="btn btn-back" data-back>← Volver a la portada</button></div>
-</div>
-</div>
-<div class="pview" data-view="sistema" hidden>
-<section class="block" aria-labelledby="t-colores">
-<p class="kicker">01 · Tokens</p><h2 id="t-colores">Colores y rol</h2>
-<p class="lede">Vino y beige como base, azul asociado a Proyectos y café para lectura. Códigos vigentes que sustituyen a los anteriores.</p>
-<div class="swatches">
-<article class="swatch"><div class="chip" style="background:#4C050C"></div><div class="info"><strong>Principal · identidad</strong><br><span class="token-tag">{colors.primary}</span> <code>#4C050C</code><br>Títulos, navegación y destacados.<br><button class="copy-btn" data-copy="#4C050C">Copiar</button></div></article>
-<article class="swatch"><div class="chip" style="background:#FBFCF0;box-shadow:inset 0 0 0 1px rgba(26,9,5,.25)"></div><div class="info"><strong>Base · fondo</strong><br><span class="token-tag">{colors.background}</span> <code>#FBFCF0</code><br>Descanso visual y Contacto.<br><button class="copy-btn" data-copy="#FBFCF0">Copiar</button></div></article>
-<article class="swatch"><div class="chip" style="background:#94B1C8"></div><div class="info"><strong>Complementario · Proyectos</strong><br><span class="token-tag">{colors.secondary}</span> <code>#94B1C8</code><br>Carpeta azul y etiquetas.<br><button class="copy-btn" data-copy="#94B1C8">Copiar</button></div></article>
-<article class="swatch"><div class="chip" style="background:#1A0905"></div><div class="info"><strong>Lectura · café</strong><br><span class="token-tag">{colors.ink}</span> <code>#1A0905</code><br>Textos y profundidad.<br><button class="copy-btn" data-copy="#1A0905">Copiar</button></div></article>
-</div>
-<p class="status" role="status" aria-live="polite" id="copy-status"></p>
-</section>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Ingrid López, inicio"><img src="assets/img/logo/logo_red.png" alt="Ingrid López"></a>
+      <nav class="nav" aria-label="Navegación principal"><ul>
+        <li><a href="index.html#/about">ABOUT ME</a></li>
+        <li><a href="index.html#/proyectos">PROJECTS</a></li>
+        <li><a href="index.html#/contacto">CONTACT</a></li>
+      </ul></nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="intro">
+      <div class="intro-copy">
+        <p class="eyebrow">Portafolio 2026 · guía visual</p>
+        <h1>Sistema de<br>diseño</h1>
+        <p>La identidad detrás de un portafolio que se explora como un archivo: color vino, papel cálido, tipografía editorial y carpetas interactivas.</p>
+      </div>
+      <img class="intro-art" src="assets/img/inicio/polaroid.png" alt="Retrato de Ingrid en el marco Polaroid de la portada">
+    </section>
 
-<section class="block" aria-labelledby="t-tipo">
-<p class="kicker">02 · Tipografía</p><h2 id="t-tipo">Escala tipográfica</h2>
-<p class="lede">Editorial para jerarquía, acento puntual y funcional para datos. Lo impreso en las carpetas se conserva tal cual.</p>
-<div class="type-sample"><p style="font-size:13px"><span class="token-tag">{typography.display}</span> 64px / Instrument Serif · ttf</p><p class="type-display">Diseño que muestra universos</p></div>
-<div class="type-sample"><p style="font-size:13px"><span class="token-tag">{typography.accent}</span> 24px / New Kansas ExtraSwash · otf</p><p class="type-accent">Ingrid López — pestañas y etiquetas</p></div>
-<div class="logo-box"><p style="font-size:13px"><span class="token-tag">{components.logo}</span> sobre beige</p><img src="assets/img/logo/logo_red.png" alt="Logotipo Ingrid López en rojo para fondo beige" loading="lazy"></div>
-<div class="logo-box on-dark" style="background:var(--colors-primary);border-color:var(--colors-primary)"><p style="font-size:13px;color:var(--colors-background)"><span class="token-tag">{components.logo-on-dark}</span> sobre vino</p><img src="assets/img/logo/logo_beige.png" alt="Logotipo Ingrid López en beige para fondo vino" loading="lazy"></div>
-<div class="type-sample"><p style="font-size:13px"><span class="token-tag">{typography.body}</span> 16px / Area · otf</p><p>Fechas, roles, descripciones y navegación. Lectura cómoda.</p></div>
-</section>
+    <section class="section" aria-labelledby="carpetas-title">
+      <div class="section-heading"><h2 id="carpetas-title">Carpetas</h2><p>La portada comienza con “Sobre mí” al frente. Las otras dos carpetas quedan alineadas detrás y solo muestran sus pestañas.</p></div>
+      <div class="panel folder-panel">
+        <div class="tab-indicators" role="img" aria-label="Pestañas de las secciones Sobre mí, Proyectos y Contacto">
+          <div class="tab-crop tab-about" aria-hidden="true"></div>
+          <div class="tab-crop tab-projects" aria-hidden="true"></div>
+          <div class="tab-crop tab-contact" aria-hidden="true"></div>
+        </div>
+        <div class="stage-caption">Indicadores de sección · cada pestaña conserva el color y la rotulación del arte final</div>
+      </div>
+      <div class="folder-details">
+        <article class="folder-detail"><h3>Sobre mí</h3><p>Pestaña vino, seleccionada al entrar al portafolio.</p></article>
+        <article class="folder-detail"><h3>Proyectos</h3><p>Pestaña beige; al seleccionarla aparecen las categorías.</p></article>
+        <article class="folder-detail"><h3>Contacto</h3><p>Pestaña rosa; al seleccionarla aparecen los enlaces de contacto.</p></article>
+      </div>
+    </section>
 
+    <section class="section" aria-labelledby="colores-title">
+      <div class="section-heading"><h2 id="colores-title">Color</h2><p>Colores CSS del producto. El rosa de Contacto vive dentro de la ilustración final de esa carpeta.</p></div>
+      <div class="panel palette">
+        <div class="swatch"><div class="swatch-color" style="background:#79121E"></div><p><strong>Primario</strong><code>#79121E</code></p></div>
+        <div class="swatch"><div class="swatch-color" style="background:#FBFCF0"></div><p><strong>Fondo</strong><code>#FBFCF0</code></p></div>
+        <div class="swatch"><div class="swatch-color" style="background:#94B1C8"></div><p><strong>Secundario</strong><code>#94B1C8</code></p></div>
+        <div class="swatch"><div class="swatch-color" style="background:#1A0905"></div><p><strong>Tinta</strong><code>#1A0905</code></p></div>
+        <div class="swatch"><div class="swatch-color" style="background:#780E17"></div><p><strong>Fondo de portada</strong><code>#780E17</code></p></div>
+      </div>
+    </section>
 
-<section class="block" aria-labelledby="t-espacio">
-<p class="kicker">03 · Espaciado y retícula</p><h2 id="t-espacio">Espaciado</h2>
-<p class="lede">Base <span class="token-tag">{spacing.base}</span> 8px. Portada con encabezado, frase breve y tres carpetas superpuestas.</p>
-<div class="bar-row"><span>{spacing.sm} · 8px</span><div class="bar" style="width:16px;background:var(--colors-primary);height:18px"></div><span>detalle</span></div>
-<div class="bar-row"><span>{spacing.md} · 16px</span><div class="bar" style="width:48px;background:var(--colors-primary);height:18px"></div><span>gap</span></div>
-<div class="bar-row"><span>{spacing.lg} · 24px</span><div class="bar" style="width:80px;background:var(--colors-primary);height:18px"></div><span>relleno</span></div>
-<div class="bar-row"><span>{spacing.section} · 96px</span><div class="bar" style="width:180px;background:var(--colors-primary);height:18px"></div><span>aire</span></div>
-</section>
+    <section class="section" aria-labelledby="type-title">
+      <div class="section-heading"><h2 id="type-title">Tipografía</h2><p>Las mismas familias declaradas y utilizadas en los encabezados, navegación, cuerpo y pestañas HTML.</p></div>
+      <div class="panel">
+        <div class="type-grid">
+          <div class="type-card"><small>Display · Instrument Serif</small><p class="type-sample-display">Hola, yo soy Ingrid</p></div>
+          <div class="type-card"><small>Encabezados · Instrument Serif</small><p class="type-sample-heading">Mis proyectos</p></div>
+          <div class="type-card"><small>Acento · New Kansas</small><p class="type-sample-accent">sobre mí · proyectos</p></div>
+          <div class="type-card"><small>Texto · Albert Sans</small><p class="type-sample-body">Diseño gráfico y digital con intención.</p></div>
+        </div>
+        <div class="scale" aria-label="Muestras de tamaños tipográficos"><span>13 px · apoyo</span><span>16 px · cuerpo</span><span>20 px · tarjeta</span><span>32 px · sección</span></div>
+      </div>
+    </section>
 
-<section class="block" aria-labelledby="t-formas">
-<p class="kicker">04 · Radios, formas y profundidad</p><h2 id="t-formas">Radios y formas</h2>
-<p class="lede">Las carpetas originales viven en la portada. Aquí solo la guía de radios y acentos. Plano, sin sombras fuertes.</p>
-<div class="radii">
-<div class="radius-card"><div class="demo folder"></div>{rounded.folder-top}<br>folder</div>
-<div class="radius-card"><div class="demo pill"></div>{rounded.pill}<br>botones</div>
-<div class="radius-card"><div class="demo circle"></div>{rounded.circle}<br>acento</div>
-</div>
-<div class="stickers">
-<div class="sticker"><div style="display:flex;gap:12px;justify-content:center;align-items:end;background:var(--colors-background);border-radius:4px;padding:16px 8px" role="presentation"><span style="display:block;width:56px;height:56px;border-radius:50%;background:var(--colors-primary)"></span><span style="display:block;width:56px;height:28px;border-radius:56px 56px 0 0;background:var(--colors-secondary)"></span><span style="display:block;width:56px;height:8px;background:var(--colors-ink);margin-bottom:24px"></span></div><p>Formas · geometría {rounded.none}</p></div>
-</div>
-</section>
+    <section class="section" aria-labelledby="projects-title">
+      <div class="section-heading"><h2 id="projects-title">Proyectos</h2><p>La navegación mantiene la carpeta visible: categorías, lista de proyectos y ficha con una flecha que regresa a las categorías.</p></div>
+      <div class="project-preview">
+        <img class="project-folder-art" src="assets/img/inicio/proyectos.png" alt="" aria-hidden="true" width="4031" height="2756">
+        <div class="project-shell">
+          <h3>Mis proyectos</h3>
+          <p>Explora mis trabajos por categoría. Selecciona una para ver los proyectos.</p>
+          <div class="category-grid">
+            <div class="category"><img src="assets/img/hollywood/hollywood_cover.png" alt="Portada de Hollywood Offscreen" loading="lazy"><span class="category-label">Editorial</span></div>
+            <div class="category"><img src="assets/img/portada_singapore_ux.png" alt="Proyecto UX de Singapore Airlines" loading="lazy"><span class="category-label">UX / UI</span></div>
+            <div class="category"><img src="assets/img/stand_Rem/RemBeauty_1_0001.png" alt="Stand de r.e.m. beauty" loading="lazy"><span class="category-label">Motion graphics</span></div>
+            <div class="category"><img src="assets/img/caffungi/cover.png" alt="Proyecto Caffungi" loading="lazy"><span class="category-label">Branding</span></div>
+          </div>
+        </div>
+      </div>
+      <article class="project-card-sample panel">
+        <img src="assets/img/hollywood/hollywood_cover.png" alt="Miniatura de proyecto editorial" loading="lazy">
+        <div><span class="label">Tarjeta de proyecto</span><h3>Hollywood Offscreen</h3><p class="subtitle">Fanzine editorial</p><p>Miniatura, título, descripción breve y acción para abrir la ficha del proyecto.</p><span class="sample-button">Ver proyecto</span></div>
+      </article>
+    </section>
 
-<section class="block" aria-labelledby="t-comp">
-<p class="kicker">05 · Componentes</p><h2 id="t-comp">Botones, enlaces y tarjetas</h2>
-<p class="lede">La interacción por carpetas vive en la portada. Aquí la muestra de botones, enlaces y tarjetas.</p>
-<div class="btn-row"><a class="btn btn-primary" href="#/proyectos">Ver proyectos</a><a class="sample-link" href="#/contacto">Enlace de ejemplo →</a></div>
-<div class="cards">
-<article class="project-card"><div class="media"><img src="assets/img/fanzine/fanzine.png" alt="Proyecto editorial fanzine" loading="lazy"><div class="overlay"><h3>Fanzine</h3><p>Editorial · 2026</p></div></div><div class="card-foot"><span style="font-size:13px">Editorial</span><button class="mini-btn" aria-expanded="false">Ver info</button></div></article>
-<article class="project-card"><div class="media"><img src="assets/img/modelado /personaje_vert_1_0001.png" alt="Proyecto de personaje 3D" loading="lazy"><div class="overlay"><h3>Personaje 3D</h3><p>Experimentación visual</p></div></div><div class="card-foot"><span style="font-size:13px">3D</span><button class="mini-btn" aria-expanded="false">Ver info</button></div></article>
-</div>
-</section>
+    <section class="section" aria-labelledby="contact-title">
+      <div class="section-heading"><h2 id="contact-title">Contacto</h2><p>La composición y los textos visibles forman parte del arte final; las zonas de enlace se implementan encima de la imagen.</p></div>
+      <div class="panel contact-sample">
+        <img src="assets/img/inicio/contacto_carpeta.png" alt="Carpeta rosa de contacto con pregunta, invitación y datos de contacto" loading="lazy" width="4031" height="2756">
+        <div class="contact-note"><span class="label">Acciones enlazadas en index.html</span><h3>Los enlaces conservan el arte</h3><p>Las zonas interactivas se colocan sobre cada dato de la ilustración, de modo que el diseño se mantiene intacto.</p><ul class="contact-destinations"><li><strong>WhatsApp</strong> 55 25 38 37 57</li><li><strong>Correo</strong> hola.ingridlopez@gmail.com</li><li><strong>Behance</strong> Visitar perfil</li></ul></div>
+      </div>
+    </section>
 
-<section class="block" aria-labelledby="t-reglas">
-<p class="kicker">06 · Reglas</p><h2 id="t-reglas">Lo que sí y lo que no</h2>
-<div class="two-col">
-<div class="do"><h3>Sí</h3><ul><li>Conservar siluetas y rayas originales</li><li>Vino y beige como base, azul para Proyectos</li><li>Portada breve, desacomodo leve al frente</li><li>Navegación clara con alternativa táctil</li></ul></div>
-<div class="dont"><h3>No</h3><ul><li>No rectángulos genéricos ni deformar</li><li>No llenar la portada con Sobre mí</li><li>No hover como única vía</li><li>No animaciones largas ni stickers mecánicos</li></ul></div>
-</div>
-</section>
-</div>
-</section>
-
-</div></main>
-<footer><div class="wrap">© Ingrid López · referencia fiel a DESIGN.md</div></footer>
-<script>
-(function(){
-  var status=document.getElementById('copy-status');
-  document.querySelectorAll('.copy-btn').forEach(function(b){b.addEventListener('click',function(){var v=b.getAttribute('data-copy');function d(){if(status)status.textContent='Copiado '+v;}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(v).then(d,function(){if(status)status.textContent=v;});}else{if(status)status.textContent=v;}});});
-  var views=document.querySelectorAll('.pview');
-  var live=document.getElementById('folders-live');
-  var fbtns=document.querySelectorAll('.ffolder');
-  var fstatus=document.getElementById('folder-status');
-  var fnames={contacto:'Contacto',proyectos:'Proyectos','sobre-mi':'Sobre mí'};
-  var routes={inicio:'inicio','sobre-mi':'sobre-mi',proyectos:'proyectos',contacto:'contacto',sistema:'sistema'};
-  var titles={inicio:'Ingrid López — Portafolio','sobre-mi':'Sobre mí — Ingrid López',proyectos:'Proyectos — Ingrid López',contacto:'Contacto — Ingrid López',sistema:'Sistema de diseño — Ingrid López'};
-  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function current(){var h=(location.hash||'').replace('#/','').replace('#','');return routes[h]||'inicio';}
-  var orderBase=['sobre-mi','proyectos','contacto'];
-  function setFront(k){
-    var others=orderBase.filter(function(x){return x!==k;});
-    var ranks={};ranks[k]=0;ranks[others[0]]=1;ranks[others[1]]=2;
-    fbtns.forEach(function(b){var key=b.getAttribute('data-k');var r=ranks[key];
-      b.classList.remove('rank-0','rank-1','rank-2');b.classList.add('rank-'+r);
-      var on=(r===0);b.classList.toggle('active',on);b.setAttribute('aria-pressed',on?'true':'false');});
-  }
-  function scrollToStage(){var s=document.querySelector('.stage');if(!s){return;}try{s.scrollIntoView({block:'start',behavior:reduce?'auto':'smooth'});}catch(e){if(s.scrollIntoView){s.scrollIntoView();}}}
-  function show(name,focus,scroll){
-    views.forEach(function(v){v.hidden=v.getAttribute('data-view')!==name;});
-    document.querySelectorAll('.nav-links a').forEach(function(a){if(a.getAttribute('data-nav')===name){a.setAttribute('aria-current','page');}else{a.removeAttribute('aria-current');}});
-    if(name==='inicio'){setFront('sobre-mi');}else if(name!=='sistema'){setFront(name);}
-    document.title=titles[name]||titles.inicio;
-    if(scroll){if(name==='inicio'){window.scrollTo(0,0);}else{scrollToStage();}}
-    if(focus){var h=document.querySelector('[data-view="'+name+'"] [data-title]');if(h&&h.focus){try{h.focus({preventScroll:true});}catch(e){h.focus();}}}
-    if(name==='inicio'&&fstatus){fstatus.textContent='Portada: las tres carpetas apiladas. Toca una para abrir su sección.';}
-    if(name!=='inicio'&&fstatus){fstatus.textContent='Abierta: '+fnames[name]+' · Usa Volver para regresar a la portada.';}
-  }
-  function go(name){if(current()===name){show(name,true,true);}else{location.hash='#/'+name;}}
-  fbtns.forEach(function(b){b.addEventListener('click',function(){var k=b.getAttribute('data-k');if(k===current()&&document.querySelector('[data-view="'+k+'"]')&&!document.querySelector('[data-view="'+k+'"]').hidden){return;}if(live&&!reduce){live.classList.add('jolt');setTimeout(function(){live.classList.remove('jolt');setFront(k);go(k);},240);}else{setFront(k);go(k);}});});
-  document.querySelectorAll('[data-back]').forEach(function(b){b.addEventListener('click',function(){go('inicio');});});
-  window.addEventListener('hashchange',function(){show(current(),true,true);});
-  show(current(),false,false);
-  document.querySelectorAll('.project-card').forEach(function(c){var b=c.querySelector('.mini-btn');if(!b)return;b.addEventListener('click',function(){var o=c.classList.toggle('reveal');b.setAttribute('aria-expanded',o?'true':'false');b.textContent=o?'Ocultar':'Ver info';});});
-})();
-</script>
+    <section class="section" aria-labelledby="tokens-title">
+      <div class="section-heading"><h2 id="tokens-title">Medidas y acabados</h2><p>Valores compartidos que aparecen en estilos de la página.</p></div>
+      <div class="panel tokens">
+        <div><span class="label">Espaciado</span><ul class="token-list"><li><span>xs · sm · md</span><code>4 · 8 · 16 px</code></li><li><span>lg · xl · xxl</span><code>24 · 32 · 48 px</code></li><li><span>xxxl · sección</span><code>64 · 96 px</code></li></ul></div>
+        <div><span class="label">Forma y sombra</span><ul class="token-list"><li><span>Tarjetas</span><code>4 px</code></li><li><span>Acciones tipo píldora</span><code>999 px</code></li><li><span>Sombras suaves / medios / fuertes</span><code>2 / 4 / 8 px</code></li></ul><p class="token-note">Las imágenes de carpeta incluyen su propia forma y rotulación; no se recrean como tarjetas CSS.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap footer-inner"><img src="assets/img/logo/logo_beige.png" alt="Ingrid López"><span>© 2026 Ingrid López · Sistema de diseño</span></div></footer>
 </body>
 </html>
